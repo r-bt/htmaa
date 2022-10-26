@@ -1,0 +1,89 @@
+---
+title: "01 | Computer Aided Design"
+---
+
+<script>
+    import { base } from '$app/paths'
+
+    import Image from '/src/components/Image.svelte';
+    import Details from '/src/components/Details.svelte';
+
+    // Queen Chess Piece
+    import queenSketch from '$lib/week1-assets/queen-sketch.png?width=600';
+    import revolvedQueen from '$lib/week1-assets/revolved-queen.png?width=600';
+    import filletedRevolvedQueen from '$lib/week1-assets/filleted-revolved-queen.png?width=600';
+    import finishedQueen from '$lib/week1-assets/finished-queen.png?width=600';
+
+    //Submarine images
+    import propellerSketch from '$lib/week1-assets/3d-propeller-sketch.png?width=600';
+    import propellerExtruded from '$lib/week1-assets/3d-propeller-extruded.png?width=600';
+    import renderedSubmarine from '$lib/week1-assets/rendered_submarine.png?width=600';
+
+    import submarineVideo from "$lib/week1-assets/submarine-joints-rotating.mp4";
+</script>
+
+For the first week our assignment was to 3D model in a variety of software a potential final project idea. I'm not settled yet but I've always wanted to build a submarine so ran with that. 
+The first question is what would I do with a submarine, so now I'm introducing **Naval Chess**.
+
+### What is Naval Chess?
+
+My idea with Naval chess is to be able to play a chess game but entirely on water. Ideally I'd like to:
+1. Have portable chess pieces
+2. They can move around the water
+3. They sink when they're killed
+4. They somehow understand their relative posititons.
+
+### Modelling in Fusion
+
+<Details title="Modelling the Queen">
+    To begin I wanted to experiment with some Fusion360 features I hadn't tried out before. Revolve seemed useful so I designed a Queen Chess piece. Unfortunally, I didn't make it parametric and need to consider better how to minimize the number of parameters a design needs.
+
+    <Image src={queenSketch} alt="Fusion360 Sketch of Queen to revolve" />
+
+    Once sketched, I revolved it around it's center
+
+    <Image src={revolvedQueen} alt="Fusion360 Revovled Sketch of Queen" />
+
+    Next up was filleting all the edges and the top of the Queen to give the piece it's distintice curves
+
+    <Image src={revolvedQueen} alt="Fusion360 Filleted Revovled Sketch of Queen" />
+
+    Finally, I wanted my Queen piece to have ridges along it's head. To do this I first made an offset plane and extruded a cylinder that cut through the Queen's rim. Then I circular patterned this cut out feature and filleted the resulting sharp tops.
+
+    <Image src={filletedRevolvedQueen} alt="Finished Queen piece" />
+
+    <iframe src="https://mymit1789.autodesk360.com/shares/public/SH35dfcQT936092f0e43b9c7409ee0241d2e?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+</Details>
+
+<Details title="Modelling the Submarine">
+
+#### Propeller
+
+First up for the submarine was a propeller. After defining the bottom and top of the propeller, I used Fusion's 3D sketch feature to sketch the rails.
+
+<Image src={propellerSketch} alt="3D sketch of propeller" />
+
+Then I made a cylinder for the shaft and circular patterned the blades around it. Finally I chamfered it's end to give it a posititons
+
+<Image src={propellerExtruded} alt="Finished propeller" />
+
+#### Rest of the body
+
+To get the submarine to alter it's density I thought I could use a motorized Syringe. This was a cool way to test out Fusion 360's Joint system, after designing the base of the submarine (A cylinder with angled ends) I created the different syringe components (rubber end, rubber inset, shaft, threaded screw, screw inset) and used joints to join them all together. The end result animated nicely
+
+<Image src={renderedSubmarine} alt="Rendered image of the submarine" />
+
+<video width="400" controls>
+    <source src={submarineVideo} type="video/mp4" />
+</video>
+
+<iframe src="https://mymit1789.autodesk360.com/shares/public/SH35dfcQT936092f0e43aef42426647ccad1?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+
+</Details>
+
+### Modelling in OnShape
+
+ToDo, I'm going to try model different chess pieces in different softwares
+
+
+

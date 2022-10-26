@@ -1,0 +1,212 @@
+---
+title: 06 | Computer Controlled Machining
+layout: week
+---
+
+<script>
+    import Details from '/src/components/Details.svelte';
+    import Image from '/src/components/Image.svelte';
+    import Warning from '/src/components/Warning.svelte';
+    import Info from '/src/components/Info.svelte';
+    import SideBySide from '/src/components/SideBySide.svelte';
+
+    import measuringCouch from '$lib/week6-assets/measuring-couch.jpg?width=600&format=jpg';
+    import legoDoubleDeckerCouch from '$lib/week6-assets/lego-double-decker-couch.jpg?width=600&format=jpg';
+    import couchWithDesk from '$lib/week6-assets/couch-with-desk.png?width=600&format=jpg'
+    import armRest from '$lib/week6-assets/armrest.png?width=600&format=jpg'
+    import couchBottom from '$lib/week6-assets/couch-bottom.png?width=600&format=jpg'
+    import lee1 from '$lib/week6-assets/lee-1.jpg?width=600&format=jpg'
+    import lee2 from '$lib/week6-assets/lee-2.jpg?width=600&format=jpg'
+    import lee3 from '$lib/week6-assets/lee-3.jpg?width=600&format=jpg'
+    import assembledBack from '$lib/week6-assets/assembled-back.jpg?width=600&format=jpg';
+    import assembledCouch from '$lib/week6-assets/assembled-couch.jpg?width=600&format=jpg';
+    import testingCOuch from '$lib/week6-assets/testing-couch.jpg?width=600&format=jpg&rotate=90';
+    import vaccuming from '$lib/week6-assets/vaccuming.jpg?width=600&format=jpg&rotate=90';
+    import flood from '$lib/week6-assets/flood.jpg?width=600&format=jpg';
+    import makeshiftMop from '$lib/week6-assets/makeshift-mop.jpg?width=600&format=jpg';
+    import makeshiftDryer from '$lib/week6-assets/makeshift-dryer.jpg?width=600&format=jpg';
+    import sinkOverflowing from '$lib/week6-assets/sink-overflowing.jpg?width=600&format=jpg';
+    import cncRouter from '$lib/week6-assets/cnc-router.jpg?width=600&format=jpg';
+    import cncRouterComputer from '$lib/week6-assets/cnc-router-computer.jpg?width=600&format=jpg';
+    import cncRouterCutting from '$lib/week6-assets/cnc-router-cutting.jpg?width=600&format=jpg';
+    import woodPile from '$lib/week6-assets/wood-pile.jpg?width=600&format=jpg';
+</script>
+
+<Warning>
+    Neil says that our documentation should have enough information that someone can follow along and repeat out process. If you're this someone, STOP now! This is the a story about floods, "sketchy" projects, decapitation and how nearly everything went wrong. Please don't do what I did.
+</Warning>
+
+<Details title="The idea">
+    Before the week started my idea was to build a human-sized fire-hydrant. One of my friends is obsessed with fire hydrants and sends us all pictures of any "noteworthy" ones he passes. I'd mentally planned out what it would look like and it incorporated a ton of curved features. However, during lecture on Wednesday, Neil talked us through some of the properites of OSB and how it definetely isn't a bendable material.
+
+    OSB has very specific material properties. It's called the **"sausage of wood"** since it's made from compressing left over wood strands and bonding them all together with adhesives. It's cheap and great for large panels but it isn't meant for some projects.
+
+    Like, it really shouldn't be used to build a **double decker couch**. Yeah, I tried to build a double decker couch. If you've ever seen teh lego movie then you know what I'm talking about
+    
+    <Image src={legoDoubleDeckerCouch} alt="Lego Double Decker" />
+
+    You get two couchs, place one over the other, and attach a ladder to the side. The Edgerton student centre was looking for a couch and one of the staff members jokingly suggested a double decker couch, so with [Alayah](https://fab.cba.mit.edu/classes/863.22/Architecture/people/Alayah/index.html) from the architecture section we wanted to try build one.
+    
+    We each had one sheet of around 96x47" OSB so we decided to each design our own couch, and then use 2x4 plywood beams for the support structure.
+</Details>
+
+<Details title="Designing the double decker couch">
+    We first needed to figure out some dimensions. Edgerton has a couch already so we started measuring it's length and width and so how tall people were when they sat on it (to figure out the best height to loft the second couch at) and how far down their legs dangle
+
+    <Image src={measuringCouch} alt="Measuring the couch in Edgerton" />
+
+    Then we planned our support structure. The couch on top was going to be really heavy, the combined weight of the OSB and a person. We estimated around 100lbs for OSB and 180lbs for the person. This weight would also not be distributed evenly. We're both not far enough into 2.001 yet to do all the calculations required to use the minimum materials in the perfect position so decided to try overkill the support structure.
+
+    Alayah's couch would be placed on the bottom. We included an estimated for how thick her cushion would be and decided the sitting height (height of couch above ground) would be 15in, the average male is 35in tall when sitting so we wanted to loft the second couch 60 in above the ground. The couch would be supported be 4 2x4 plywood beams on each side, with crossed beams at the sides and back and distribute the weight.
+
+    <Image src={lee3} alt="Rough diagram of support structure" />
+
+    The top couch we decided would be less a couch and more a beanbag platform. Since it'd be lofted it wouldn't need a support structure to raise it to sitting height and we decided it's base needed to be a single piece of OSB to best support the beanbag. 
+
+    Finally, after listening to Anthony at recitation and talking to a furniture maker in Metropolis (more below) we opted against joints. OSB falls apart if it's put under stress, so finger-joints weren't going to be safe.
+</Details>
+
+<Details title="Cadding the couch">
+    
+    Cadding the couch went smoothly. I parameterized the dimensions so that I'd be able to play around with them when it came time to place everything on the board. 
+
+    Firstly, I  made four support beams on each corner. I messed up here however by not thinking about what would be comfortable arm height, so they rise to 18in above the base which makes a funny sight of someone needing to have their arm angled upwards to use them.
+
+    <Image src={armRest} alt="Arm rest" />
+
+    Then I placed 5 rectangular OSB pieces underneath the base to support the platform
+
+    <Image src={couchBottom} alt="Underneath of couch" />
+
+    Finally, the point of the beanbag was that Alayah refuses to use her desk and insists the floor is better. So a beanbag on a platform is basically equivilent to the floor. To allow work to be done I wanted to incorporate a desk, so I cadded one consisting of two parts attached with a hinge that would rotate around a pin-joint at the side
+
+    <Image src={couchWithDesk} alt="Couch" />
+</Details>
+
+<Details title="Talking with a furniture maker">
+    Once the couchs were designed we wanted to run them by someone for feedback, specifically if they thought it'd be safe. 
+
+    A new staff member, Lee Zamir, recentely joined Metropolis and he runs a personal furniture studio so we found him one day and went through everything. 
+
+    First he explained what makes a chair comfortable:
+    - The base should be between 17"-18" off the ground
+    - The back should be angled at 20° from between 7" to 14" from the base
+            - This takes weight of the sitter's back.
+            - In a couch you don't have to worry about this as much since the back cushion deforms to match the sitter's back shape.
+    - The part of a chair's back above 14" and below 7" should gently slope away from the back support to not have any hard bars which would dig into the sitter's back.
+
+
+    <Image src={lee1} alt="Drawing from Lee" />
+
+    [Second drawigg]
+
+    After, hearing all of these and making some comfort adjustments we talked about the structures safety. Lee recommended attaching triangular blocks at all the corners to distribute the uneven weight and agreed to avoid finer-joints. 
+    
+    Instead, he suggested **glue blocks**. This is where you place plywood blocks in between the OSB sheets and glue everything together. This, according to Lee, is a lot sturdier.
+</Details>
+
+<Details title="Everyone thinks we're going to decapiate someone">
+    With Lee's stamp of approval we sent our CAD drawings off to Jen in the architecture shop on Monday. Within minutes she got back to us wondering about the lack of finger-joints. To explain we told her how we were going to make a double-decker couch. Frantically Jen replied, this time with more people cced, to warn against our <b>"sketchy"</b> and <b>"very dangerous"</b> project. She was understandable concerned about placing such a large weight above someone's head. 
+
+
+    <Warning>
+        <b>Lesson 1:</b> Always go to the expert first with the project idea not once it's ready to cut.
+    </Warning>
+    
+    Jen cced'd Chris in N51 for advice about the safety of our couch so we both headed off to the Architecture shop to try talk to him. Once we finally got him, we told him that we're building a double-decker couch and showed one of the CAD drawings.
+
+    "How deep is it?" - He asked
+
+    "30in" – I responded
+
+    "That's too deep, a couch's width should be around 20in"
+
+    "Also, what are the supports on the side"
+
+    "Armrests" - I said 
+
+    "Those are too high, this won't be a comfortable couch"
+
+    After just recieving those emails from Jen where she sounded terrified at what we were trying to do, I was confused about the sudden change of topic.
+
+    "So, so just to confirm you think it's safe to build this?"
+
+    "Yes, definetely. Although glue blocks won't work, glue sticks to OSB's surface which will just flake off"
+
+    So now, we have three furnitues makers each giving us a different verdict about the safety of our structure and how we should put it together.
+     
+    We contacted Jen again to get more information about finger joints where she explaiend why OSB was a poor material choice for this project
+
+    <Info>
+        Everything I <b>now</b> know about OSB:
+        <ul>
+            <li>OSB falls apart if it's stressed</li>
+            <li>Any sort of joint (finger, screw, mortise / tenon style)will fray or splinter if there's stress placed on them</li>
+            <li>It absorbs moisture easily, and swells like MDF if wet.
+        </ul>
+    </Info>
+
+    She told us that a double-decker couch wasn't the right sort of project given the materials. After some thought, we agreeded.
+
+    Unfortunally, we had a 2.001 midterm the next day and this whole experience showed us that we really needed to study more. So we promised that we wouldn't loft the two couchs but asekd if Jen could CAM it.
+</Details>
+
+<Details title="Cutting the couch">
+
+    After leaving N51 on Monday we were a little dissapointed that we weren't going to make our double decker couch but hopeful that the simplified two boring floor couchs woulnd't take too long. We were wrong.
+
+    <Warning>
+        <b>Lesson 2:</b> Don't cut your pieces on the last day
+    </Warning>
+
+    When we got to N51 on Monday we checked with Chris if he got our CAM – he did yay :) However, there were two people in front of us in the queue for the router. Chris said it'd take 45 minutes, so we waited. 
+
+    The first job completed fine, however during the second person's job there was a loud clanging sound and one of the endmills poped off. The endmill that did most of the cutting. The shop manager went frantically looking for a new one and after a tense 15 minutes finally found one. 
+
+    This was the second time that day one of these endmills broke. The best reason for why was that the endmill was going too depth and the resulting torque was large enough to break it. We went back to our CAM and adjusted our **plunge depth** to have the router do two passes over every cut.
+
+    Eventually, it was our turn to cut. The Onsrud at N51 has a vaccum figure so all we had to do was to place our first OSB piece on the table and engage the vaccum. We did a test run of the job with the z-index set to 1, and when this looked fine ran the actual job.
+
+    Everything continued looking great, until I saw a small stream of water leak from under the router. Then 4 streams. Then a whole river. I looked behind the router and someone had left the tap on, it had filled the sink and now it was overflowing all over the shop. 
+
+    [Image of sink]
+
+    After frantically runnining to turn it off, everyone had noticed the water. We paused our job and started cleaning up the **Great 2022 Flood of N51**
+
+    <Image src={flood} alt="Flooding" />
+
+    Once N51 was finally dry again we were able to complete Alayah's couch. To get all the pieces we first got to use their massive vaccum to pick up all the dust. 
+
+    <Image src={vaccuming} alt="Vaccuming" />
+    
+    We'd left an onion skin so had to take an exacto knife to remove the last layer but then the pieces came off easily. After vaccuming down the board we placed the second OSB on the router and started my couch.
+
+    The onion skin unfortunally left a lot of jagged pieces on the side of the OSB so before I could use it, I needed to sand it down. First I put every piece on a belt sander and finished them with the surface sander. 
+
+    By now it was 10pm and the Architecture shop was about to close, presenting a new problem – where to go now. I stacked all my pieces, wrapped them in cling-flim and then carried them from the Architecture shop to Metroplolis.
+
+    It was awful. My arms still hurt as I type this.
+
+    <Warning>
+        <b>Lesson 3:</b> Bring a cart to carry your pieces in
+    </Warning>
+
+</Details>
+
+<Details title="Building the couch">
+    Fianlly, it was time to build the couch. For the glue-no-glue blocks we got a beam of plywood from Edgerton and cut it up on the table saw (I got to learn a new tool :)). I placed the different parts of my couch/platform together, put blocks in the corner, clamped everything together, and drilled. It took hours. Sometimes the screws would go in perfectly, undertimes I'd hear a rip as my glue block fell apart. I never wished more that I used finger joints.
+
+    <Warning>
+        <b>Lesson 4:</b> Use finger joints.
+    </Warning>
+
+    Eventually it was complete. Well sort-of I ran out of time to attach the desk, but I'll go back to do that. 
+
+    Finally I needed to test it
+
+    <SideBySide>
+        <Image src={assembledCouch} alt="Assembled" />
+        <Image src={testingCOuch} alt="Testing" />
+    </SideBySide>
+   
+</Details>

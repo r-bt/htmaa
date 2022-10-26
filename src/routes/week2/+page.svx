@@ -1,0 +1,7 @@
+---
+title: "02 | Computer Controlled Cutting"
+layout: week
+---
+
+- [Vinyl cutting](./vinyl)
+- [Laser cutting](./laser)

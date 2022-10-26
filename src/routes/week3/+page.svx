@@ -1,0 +1,39 @@
+---
+title: "03 | Electronics production"
+---
+
+<script>
+    import { base } from '$app/paths'
+
+    import Image from '/src/components/Image.svelte';
+
+    import programmerBoardMots from '$lib/week3-assets/programmer-board-mots.jpg?width=600';
+    import solderingProgrammer from '$lib/week3-assets/soldering-programmer.jpg?width=600';
+    import continuityTesting from '$lib/week3-assets/continuity-testing.jpg?width=600';
+    import finishedProgrammer from '$lib/week3-assets/finished-programmer.jpg?width=600';
+    import programmingTheProgrammer from '$lib/week3-assets/programming-the-programmer.jpg?width=600';
+</script>
+
+This week's assignment was to mill, solder, and program a programmer, which is a board which can program other boards.
+
+There was a lot of confusion around which board we were meant to be actually milling out, eventually I ended up with some png files which I put into MOTs and the Roland mini-mill in EDS was able to handle.
+
+<Image src={programmerBoardMots} alt="MOTs generating tool path to mill programmer board" />
+
+Once the board was milled I had to solder in all the components. I'd never soldered anything so small before so some of my board got a little charred
+
+<Image src={solderingProgrammer} alt="Soldering the programmer board" />
+
+When I finished soldering, I needed to test if all the connections where right and if the board was shorting anywhere. This was done with **continuity testing**
+
+<Image src={continuityTesting} alt="Continuity testing with a multimeter" />
+
+Unfortunally, I made a mistake while doing this and missed a little bit of solder which connected my ground and 3.3v traces near my capacitor. Due to this when I plugged my board into my computer to program it for the first time it heated up and my chip was fried. So, I had to get the heat gun, remove those parts, and resolder them.
+
+<Image src={finishedProgrammer} alt="Finished programmer board" />
+
+All that was left was to actual program the board. First I had to install edbg on my laptop and then flash the programmer code using a Atmel. 
+
+Unfortunally, when I went to test if my board worked by trying to use it to program another board I kept getting an error on my laptop. After some debugging we found that my found did work when the exact same command was run on Windows (Yay my board wasn't broken!).
+
+<Image src={programmingTheProgrammer} alt="Programming the programmer" />

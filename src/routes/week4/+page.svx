@@ -1,0 +1,124 @@
+---
+title: 04 | 3D Printing and scanning
+layout: week
+---
+
+<script>
+    import Details from '/src/components/Details.svelte';
+    import Image from '/src/components/Image.svelte';
+
+    import tapeOnRotatingPlatform from '$lib/week4-assets/tape_on_rotating_platform.jpg?width=600&rotate=90';
+    import scanningTapeMeasure from '$lib/week4-assets/scanning_tapemeasure.jpg?width=600&rotate=90';
+    import shoeOnRotatingPlatform from '$lib/week4-assets/shoe_on_rotating_platform.jpg?width=600&rotate=90';
+    import scanningShoe from '$lib/week4-assets/scanning_shoe.jpg?width=600';
+    import pirateShipRender from '$lib/week4-assets/pirate_ship_render.png?width=600';
+    import sketchOfShipHull from '$lib/week4-assets/sketch_of_ship_hull.png?width=600';
+    import captainsQuarters from '$lib/week4-assets/captains_quarters.png?width=600';
+    import shipWallPosts from '$lib/week4-assets/ship_wall_posts.png?width=600';
+    import shipWheel from '$lib/week4-assets/ship_wheel.png?width=600';
+    import wheelOnShip from '$lib/week4-assets/wheel_on_ship.png?width=600';
+    import sailsOnShip from '$lib/week4-assets/sails_on_ship.png?width=600';
+    import sectionAnalysisOfShip from '$lib/week4-assets/section_analysis_of_ship.png?width=600';
+    import theDeepUltimaker from '$lib/week4-assets/the_deep_ultimaker.jpg?width=600&rotate=90';
+    import slicingPirateShip from '$lib/week4-assets/slicing_pirate_ship.jpg?width=600';
+    import printingLowPolyShip from '$lib/week4-assets/printing_lowpoly_ship.jpg?width=600';
+</script>
+
+<Details title="Brainstorming">
+
+The requirements for this week's project are 
+- Can be made subtractively 
+
+Here's a list of random ideas I could do:
+- Ship in a bottle
+- Something where I place another item inside during the print
+    - A lamp?
+- Something wearable
+- Baymax Plant Holder (something I was working on for a friend, but I think it could also be made subtractively)
+- Generate something using code
+- Spikey ball
+- Hair on characters
+- A pirate ship (would match some other nautical themes)
+- Generate rollacosters with code (Could I do this with ThinkerCad code blocks to reuse it elsewhere)
+- Print in place zipline
+- Print in place rolling chair (print in place wheels and axel seem difficult)
+
+**Decided Upon:** Pirate ship in a bottle
+</Details>
+
+<Details title="3D scanning">
+    The second part of this week's assignent was to 3D scan something. I was really impressed with the scanner in EDS. A couple of years ago I'd tried using my phone's camera for some simple photogramatry and it converted one of my stuffed toys into a horrible monster so my hopes weren't high.
+
+    We used a Revopoint Pop2 3D scanner which takes snapshot of an object from multiple angles and then can track geometery between them to create a mesh of the object. 
+
+    I initally wanted to scan my head (after seeing some cool colour prints from previous year's HTMAA) however after talking to Anthony (and some experimentating) I realised that the Revopoint scanner wasn't up to the task. Human hair (especailly 3D curly hair like mine) is hard to scan.
+
+    There's Unfortunally a variety of factors which can mess up a 3D scan. The technique the scanner uses utilizes light colours and generally does a bad job at scanning dark objects. However RevoPoint have a special **dark** feature which I wanted to test out
+
+    <Image src={tapeOnRotatingPlatform} alt="Tape measure on rotating platform" /> 
+
+    <Image src={scanningTapeMeasure} alt="Scan of a tapemeasure with reflective surface" /> 
+
+    As you can see the scanner really doesn't work great with shiny surfaces and even in dark mode it lost a lot of the tape measure's details.
+
+    Next up I wanted a better scan. Unable to find any close by items I looked down, saw my shoe, and decided to do that.
+
+    <Image src={shoeOnRotatingPlatform} alt="Tape measure on rotating platform" /> 
+
+    <Image src={scanningShoe} alt="Scan of a tapemeasure with reflective surface" /> 
+</Details>
+
+<Details title="Cadding the ship in a bottle">
+
+    I've decided to change my final project away from submarines, so as a final ode to my nautical theme I decided to try make a pirate ship inside a bottle. Unfortunally, I didn't obey the supply side time planning enough and the printing went all wrong, but first the CAD.
+
+    This CAD definentyl challenged my Fusion skills and spatial ability, but lofting and I are much better friends now than we were two days ago. 
+
+    To begin I sketched out the different profiles of the ship's hull. I included a spline at the bottom and top of the end piece to use as a rail while lofting to get a ship's distinctive curved end.
+
+    <Image src={sketchOfShipHull} alt="Sketch of ship hull" />
+
+    Next up I extruded and cut a rectangular section into the send of the boat where the captain's quarters would be.
+
+    <Image src={captainsQuarters} alt="Adding captain's quarters" />
+
+    Next up was the posts at the side of the boat. Following on from what I learned when cadding the queen chess piece and sketched a side profile and revolved it.
+
+    <Image src={shipWallPosts} alt="Sketching and revolving ship wall posts" />
+
+    In a new file, I then cadded a ship wheel which I linked into the ship. This was slightly annoying however, as Fusion has limited options to modify linked components. When I added the wheel it's size was wrong and I had to scale it in the original file to fix that.
+
+    <Image src={shipWheel} alt="Ship Wheel" />
+
+    <Image src={wheelOnShip} alt="Wheel on the ship" />
+
+    After some more adventures on lofting I added the masts and sails. The tried to emulate the effect of wind on the sails by creating splines in a 3D sketch which I used as a rails when lofting between the curved top and bottom of the sail.
+
+    <Image src={sailsOnShip} alt="Sails on the ship" />
+
+    Up to this point, the ship would be made subtractively (if difficultly) so to make it only possible to made additively I hollowed out the inside. My plan was to try CAD some cannons and place them inside while it was printing but I unfortunally ran out of time.
+
+    <Image src={sectionAnalysisOfShip} alt="Section analysis of the ship to show hollowed interior" />
+
+    All together it looks like:
+
+    <Image src={pirateShipRender} alt="Render of pirate ship" />
+
+    <iframe src="https://mymit1789.autodesk360.com/shares/public/SH35dfcQT936092f0e43b731be09dc20a8bc?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+    
+</Details>
+
+<Details title="3D Printing">
+
+    Metropolis (my second home) has a rack of the same Prusas as EDS, so for this assignment I wanted to try use some different 3D printers. The Deep has a Ultimaker S5, a dual extruder printer which uses PVA for water soluable supports.
+
+    <Image src={theDeepUltimaker} alt="Ultimaker S5 in the Deep" />
+
+    While the deck of the boat might of been able to print without supports (by using bridging), the sails definetely needed supports so my plan was to print the ship with PVA and then dissolve the supports away.
+
+    <Image src={slicingPirateShip} alt="Slicing pirate ship in Cura" />
+
+    Unfortunally, I left this step too late. When I tried to start my print the S5's screen exploded with different errors, and fine dust poured out of it's filament feeder. Instead then I copied my wheel over to a low-poly lifeguard ship I had previously made and printed that. Once the S5 is back I'll be printing ship again.
+
+    <Image src={printingLowPolyShip} alt="Printing low-poly ship" />
+</Details>

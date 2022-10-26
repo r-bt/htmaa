@@ -1,0 +1,6 @@
+---
+title: Building the website
+layout: week
+---
+
+- https://rodneylab.com/sveltekit-image-plugin/

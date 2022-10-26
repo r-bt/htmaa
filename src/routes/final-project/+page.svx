@@ -1,0 +1,43 @@
+---
+title: "Final Project"
+layout: week
+---
+
+<script>
+    import { base } from '$app/paths'
+    import Image from '/src/components/Image.svelte';
+
+    import sharpieColouredPrint from '$lib/final-project-assets/3dpmarker_detail.webp?width=600';
+    import printedSharpieHolder from '$lib/final-project-assets/3dpmarker_feat.webp?width=600';
+</script>
+
+**Ideas**
+
+- AUV 
+    - Not sure if I can accomplish this with the supplies available – see <a href="{base}/week1">Week 1</a> for details
+- DIY multi-color 3D printer
+
+**DIY Multi-color 3D printer**
+
+Last semester I took 2.00b which is seemed to be the class course 2 funnels all their money because for their learn to CAD assignment they told us to design an enclosure for a music box and to "Remember to add colour since we'll print these on our Stratasys J55".
+
+At $300 worth of material for each box times 100 students, they spent $30,000 dollars just making our random creations. Excessive, yeah but results were incredible.
+
+<video controls width="250">
+    <source src="{base}/TooberVideo.mp4"
+            type="video/mp4">
+</video>
+
+Honestly, ever since using the J55 printing in a single colour on a Prusa has been midly dissapointing. While taking to Anthony about if EDS had any colour printers – it does not :( – he mentioned that some people online have had success using sharpies to dye filament as it left the extruder.
+
+The results from mechanical systems that implemented this are quite impressive.
+
+<Image src={sharpieColouredPrint} alt="3D print coloured with sharpie" />
+
+Effectivly, you can 3D print holders which press multiple sharpies against a white filament entering your extruder.
+
+<Image src={printedSharpieHolder} alt="Holder for sharpies" />
+
+However, there are issues with this approach
+- **Resiudal colour**. Once the shaprie enters your nozzle it heats up with the filament, and portions of it tend to stay in the nozzle coloring future prints 
+- **Control of the color**. Just pressing the sharpies to the filament makes a coloured piece but you can't print pieces which require certain colours in specific places (e.g. like the box above)
