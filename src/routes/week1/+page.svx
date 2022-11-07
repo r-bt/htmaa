@@ -7,6 +7,8 @@ title: "01 | Computer Aided Design"
 
     import Image from '/src/components/Image.svelte';
     import Details from '/src/components/Details.svelte';
+    import Model from '/src/components/Model.svelte';
+    import SideBySide from '/src/components/SideBySide.svelte';
 
     // Queen Chess Piece
     import queenSketch from '$lib/week1-assets/queen-sketch.png?width=600';
@@ -18,6 +20,18 @@ title: "01 | Computer Aided Design"
     import propellerSketch from '$lib/week1-assets/3d-propeller-sketch.png?width=600';
     import propellerExtruded from '$lib/week1-assets/3d-propeller-extruded.png?width=600';
     import renderedSubmarine from '$lib/week1-assets/rendered_submarine.png?width=600';
+
+    import cuttingOutSectionsFromEnd from '$lib/week1-assets/cuttingOutSectionsFromEnd.png?width=600';
+    import cylinderSubmarineBody from '$lib/week1-assets/cylinderSubmarineBody.png?width=600';
+    import loftingCut from '$lib/week1-assets/loftingCut.png?width=600';
+    import pistonRubber from '$lib/week1-assets/pistonRubber.png?width=600';
+    import pistonRubberInsert from '$lib/week1-assets/pistonRubberInsert.png?width=600';
+    import positionedPropeller from '$lib/week1-assets/cylinderSubmarineBody.png?width=600';
+    import screwAndShaft from '$lib/week1-assets/screwAndShaft.png?width=600';
+    import sketchOfAngeledSection from '$lib/week1-assets/sketchOfAngledSection.png?width=600';
+    import sketchOfTwoCircles from '$lib/week1-assets/sketchOfTwoCircles.png?width=600';
+    import submarineMirrored from '$lib/week1-assets/submarineMirrored.png?width=600';
+    import syrine from '$lib/week1-assets/syringe.png?width=600';
 
     import submarineVideo from "$lib/week1-assets/submarine-joints-rotating.mp4";
 </script>
@@ -33,8 +47,6 @@ My idea with Naval chess is to be able to play a chess game but entirely on wate
 3. They sink when they're killed
 4. They somehow understand their relative posititons.
 
-### Modelling in Fusion
-
 <Details title="Modelling the Queen">
     To begin I wanted to experiment with some Fusion360 features I hadn't tried out before. Revolve seemed useful so I designed a Queen Chess piece. Unfortunally, I didn't make it parametric and need to consider better how to minimize the number of parameters a design needs.
 
@@ -46,44 +58,88 @@ My idea with Naval chess is to be able to play a chess game but entirely on wate
 
     Next up was filleting all the edges and the top of the Queen to give the piece it's distintice curves
 
-    <Image src={revolvedQueen} alt="Fusion360 Filleted Revovled Sketch of Queen" />
+    <Image src={filletedRevolvedQueen} alt="Fusion360 Filleted Revovled Sketch of Queen" />
 
     Finally, I wanted my Queen piece to have ridges along it's head. To do this I first made an offset plane and extruded a cylinder that cut through the Queen's rim. Then I circular patterned this cut out feature and filleted the resulting sharp tops.
 
-    <Image src={filletedRevolvedQueen} alt="Finished Queen piece" />
+    <Image src={finishedQueen} alt="Finished Queen piece" />
 
-    <iframe src="https://mymit1789.autodesk360.com/shares/public/SH35dfcQT936092f0e43b9c7409ee0241d2e?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+    <Model src="queen.glb" />
+
 </Details>
 
 <Details title="Modelling the Submarine">
 
-#### Propeller
+Of cousrse what good is a chess piece if it doesn't have some aquatic vechicle to ferry it around. Next up was designing the submarine the piece would sit on.
+
+Why a submarine?
+- Submarines are cool
+- They can go underwater which is the effect I want for when a piece dies
+
+### Propeller
 
 First up for the submarine was a propeller. After defining the bottom and top of the propeller, I used Fusion's 3D sketch feature to sketch the rails.
 
 <Image src={propellerSketch} alt="3D sketch of propeller" />
 
-Then I made a cylinder for the shaft and circular patterned the blades around it. Finally I chamfered it's end to give it a posititons
+Then I made a cylinder for the shaft and circular patterned the blades around it. Finally I chamfered it's end to give it a point.
 
 <Image src={propellerExtruded} alt="Finished propeller" />
 
-#### Rest of the body
+### Rest of the body
 
-To get the submarine to alter it's density I thought I could use a motorized Syringe. This was a cool way to test out Fusion 360's Joint system, after designing the base of the submarine (A cylinder with angled ends) I created the different syringe components (rubber end, rubber inset, shaft, threaded screw, screw inset) and used joints to join them all together. The end result animated nicely
+To get the submarine to alter it's density I thought I could use a motorized syringe. The idea is that the submarine would pull back the syrine, taking in water and hence sinking.
+
+First up was the body this began as a simple cylinder 
+
+<Image src={cylinderSubmarineBody} alt="Simple cylinder for submarine body" />
+
+Then I offset a plane from one of the ends, created a new sketch, and drew two smaller circles. Unfortunally, Fusion would not let me loft between the wall of my hallow cylinder and the area between my two sketched circles so I had to do two lofts one to create a new body and another to cut out the inside.
+
+<SideBySide>
+    <Image src={sketchOfTwoCircles} alt="Sketch of two circles" />
+    <Image src={loftingCut} alt="Cutting out inside of end of submarine" />
+</SideBySide>
+
+Now, at this point I realised I had no idea how propellers actually worked and started googling. Apparantly there's a whole sub internet culture dedicated to taking pictures and figuring out how US submarines work since the internals are all classified information. Anyway, the point is that I discovered the ends of my submarines would need sections cut out of them to allow water to get through while still protecting the propeller from large objects. I sketched an angled area, cut it out of the end of the submarine and circular patterend the feature all around.
+
+<SideBySide>
+    <Image src={sketchOfAngeledSection} alt="Section of angled section on cylinder" />
+    <Image src={cuttingOutSectionsFromEnd} alt="Cutting out area from end of submarine" />
+</SideBySide>
+
+Next up I wanted to position the propeller. I extruded a section out of one of the ends and positioned the propeller inside
+
+<Image src={positionedPropeller} alt="Propeller positoned on submarine" />
+
+For visuals I wanted the other side of the submarine to look the same so I mirrored about a central plane. 
+
+<Image src={submarineMirrored} alt="Mirrored end of submarine" />
+
+Next I thought this submarine could be a cool way to test out Fusion 360's joint system. I created the different syringe components (rubber end, rubber inset, shaft, threaded screw, screw inset).
+
+<SideBySide>
+    <Image src={syrine} alt="Syrine" />
+    <Image src={pistonRubber} alt="Rubber for syrine" />
+</SideBySide>
+
+<SideBySide>
+     <Image src={pistonRubberInsert} alt="Rubber insert for syrine" />
+     <Image src={screwAndShaft} alt="Screw and shaft for syrine" />
+</SideBySide>
+
+Finally I used joints to join them all together.
 
 <Image src={renderedSubmarine} alt="Rendered image of the submarine" />
+
+<Model src="submarine.glb" />
+
+The end result animated nicely really nicely
 
 <video width="400" controls>
     <source src={submarineVideo} type="video/mp4" />
 </video>
 
-<iframe src="https://mymit1789.autodesk360.com/shares/public/SH35dfcQT936092f0e43aef42426647ccad1?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
-
 </Details>
-
-### Modelling in OnShape
-
-ToDo, I'm going to try model different chess pieces in different softwares
-
 
 

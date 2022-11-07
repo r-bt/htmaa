@@ -1,0 +1,120 @@
+---
+title: 06 | Embeded Programming
+layout: week
+---
+
+<script>
+    import Details from '/src/components/Details.svelte';
+    import Image from '/src/components/Image.svelte';
+    import Warning from '/src/components/Warning.svelte';
+    import Info from '/src/components/Info.svelte';
+    import SideBySide from '/src/components/SideBySide.svelte';
+
+    import backSideLedMatrix from '$lib/week7-assets/back-side-led-matrix.jpg?width=600&format=jpeg&rotate=90';
+    import brokenMilledLedMatrix from '$lib/week7-assets/broken-milled-led-matrix.jpg?width=600&format=jpeg&rotate=90';
+    import flashingWithAtmel from '$lib/week7-assets/flashing-with-atmel.jpg?quality=0.2format=jpeg&rotate=90';
+    import ledFlashing from '$lib/week7-assets/led-flashing.jpg?width=600&format=jpeg&rotate=90';
+    import milledLedMatrix from '$lib/week7-assets/milled-led-matrix.jpg?width=600&format=jpeg&rotate=90';
+    import millingLedMatrix from '$lib/week7-assets/milling-led-matrix.jpg?width=600&format=jpeg';
+    import otherMillLedMatrixJobSetup from '$lib/week7-assets/other-mill-led-matrix-job-setup.jpg?width=600&format=jpeg';
+    import otherMillMessesUpLedMatrix from '$lib/week7-assets/other-mill-messes-up-led-matrix.jpg?width=600&format=jpeg&rotate=90';
+    import programmingButtonAndLed from '$lib/week7-assets/programmig-button-and-led.jpg?quality=0.2&format=jpeg&rotate=90';
+    import routingLedMatrix from '$lib/week7-assets/routing-led-matrix.jpg?width=600&format=jpeg';
+    import scrapedSimpleBoard from '$lib/week7-assets/scraped-simple-board.jpg?width=600&format=jpeg&rotate=90'
+</script>
+
+This week much more relaxed that last week which was great as it gave me time to look more into stuff I didn't get time for in previous weeks.
+
+<Details title="The idea">
+    My first task was to program my echo-hello world from 2 weeks ago. Unlike during week 3 flashing the bootloader was super easy. I had EDGB set up on my mac already (thanks to Jake's guide. I unfortunally had to use the Atmel in EDS rarther than my own bootloader board since I haven't been able to get it work with my mac.
+
+    I connected the programming pins of my board to the programmer and flashed the Arduino bootloader. Yay :)
+
+    <Image src={flashingWithAtmel} alt="Flashing board with Atmel programmer" width="400px" />
+
+    To actually be able to code the board with the Arduino IDE there was a couple of steps. I again followed one of Jake's guides this time the <a href="https://mtm.cba.mit.edu/2021/2021-10_microcontroller-primer/fab-arduino/">FAB Arduino SAM Guide</a>. The main steps were:
+
+    <ol>
+        <li>Adding a new board manager URL</li>
+        <li>Switching my board in Arduino to the <b>Fab SAM core for Arduino</b></li>
+    </ol>
+
+    Once I got the Arduino IDE talking to my board I needed to figure out which pin my LED was on and which pin the Button was on. The physical pins on my board don't neccesary map to pin numbers Arduino knows about so I had to compare my board with a <a href="https://mtm.cba.mit.edu/2021/2021-10_microcontroller-primer/fab-arduino/#5-pin-mapping-tables">Pin Mapping Table</a> Jake nicely provides
+
+    Once I figured out which pins my button and led used. I coded a simple sketch which turned the LED off whenever the button was clicked. After uploading the code to my board, the LED turned on! but when I clicked the button nothing happened.
+
+    <Image src={programmingButtonAndLed} alt="Programming the led to come on with button press" />
+
+    It turned out that I didn't pay enough attention to my microcontroller's datasheet and so the pin that I had connected the button to was an oscillator which is why I couldn't read anything. I then had to scrape off the connection to that pin and solder a piece of magnetic wire between a another of my microntroller's pins and the trace to the button
+
+    <Image src={scrapedSimpleBoard} alt="Board with trace scrapped off and replaced with wire" />
+
+    This was a little dodgy, but it worked! Clicking the button turned off the LED
+
+    <Image src={ledFlashing} alt="Board with the led turning on from button click" />
+</Details>
+
+<Details title="Making an LED matrix">
+
+    I wanted to try design another board and test my ability in Eagle to learn a lot more. Alayah from the Architecture section had been talking about multiplexing LEDs and I decided to try make a board that did that.
+
+    ## What is LED multiplexing
+
+    The SAMD21E microcontroller that I decided to use for my board only has I think 26 pins which can be used to control outputs. If I did what I did with my echo-hello world and wire one pin to one LED this would let me only control 26 LEDs indepdently. However, there's lots of applications where you need to drive a lot more LEDs, in comes multiplexing. Multiplexing allows you to control n^2 LEDS with 2n pins. The LEDs are arranged into rows and columns. By outputing LOW and HIGH to different columns and rows you can selectively turn on individual LEDs. If you turn on and off LEDs fast enough you can take advantage of some persistence of vision effects to make it look like a whole group of LEDs are on at once.
+
+    ## Designing my board
+
+    I decided I wanted to make a 8x8 LED matrix. This was definetely a mistake, I should of started with a smaller size matrix. The learning would of been the same but I'd been able to iterate faster and correct my mistakes. I unfortunally I didn't do this and my mistakes killed me.
+
+    Firstly I decided to use the <b>SAMD21E</b> since it has the required pins and speed to run my matrix. I based my circuit off the <a href="http://academy.cba.mit.edu/classes/embedded_programming/D21E/hello.D21E.echo.png">SAMD21E hello-world board</a> on the HTMAA site. 
+
+    The first thing I did was to define my rules in DRC. I vividly remembered two weeks having to painstakingly select all my traces to change them to the correct width. I didn't want this to happen again (Future Richard here - Wow, what wishful thinking)
+
+    I then added 64 LEDs and started trying to position them into a square. This got tedious. Fast. So google told me that I could rectangular pattern them using an Eagle script. This was painful. Instead of selecting the components I had to make sure that each LED had an incrementing name, type in the base prefix of that name, and then guess at which spacings would be best. Of couse, the day after I had finished doing this I went into EDS and Anthony was super excited because Fusion had just been updated to natively support rectangular patterns. :(
+
+    Once everything was positioned on the board, I started adding wires for the rows and columns. One of the other reasons I decided to do multiplexing is that I knew I wasn't going to be able to route everything with only one layer and I wanted to learn how to make double-sided circuit boards with vias. I think I was a little too eager on this front, when Anthony saw my board he wished me luck since it's going to take a while to rivet and solder. Vias are not fun. I will be spending more effort trying to avoid them in the future.
+
+    Then I began routing, fusion has a nice feature where you start routing on one layer and then press the middle mouse button to switch to a via placer, and once that via is placed Eagle switches to the other layer.
+
+    <Image src={routingLedMatrix} alt="Routing LED matrix board in Eagle" />
+
+    Once I finished my circuit board, I showed it to Anthony who pointed out a couple of errors
+
+    <ul>
+        <li>I had intially forgot to add a button and resistors for the LEDs so I had go back and add all of those.</li>
+        <li>
+            My first traces where all the correct width (12) however at some point they switched back to 6 so I had to change all of these:
+            <ul>
+                <li>A quick way of doing this is to only view the layer with traces (/display none 1), then select all the traces, type ("/change width 12"), and right-click -> "Apply to group"</li>
+            </ul>
+        </li>
+        <li>The size of my via's was incorrect. This was a big pain, thankfully all the vias are in a specific layer so I did the trick above (expect with layer 18) and changed all their sizes easily. Unfortunally, this made lots of components overlap so I had to go back over everything and increase the spacing between my LEDS. I wish Eagle was parametric like Fusion.</li>
+    </ul>
+
+    ## Milling my board
+
+    This look an unresonably long time: over 2 hours. The top layer alone took one hour, this was partly my fault in previous weeks I had left a lot of copper around the USB connectors which I had to scrape off. However by changing the <b>trace clearance</b> setting you can get the Mill to do this for you. I changed my trace clearance to 3mm, however you can't selectively apply it only to the usb so it added about 15mins to the job.
+
+    <SideBySide>
+        <Image src={otherMillLedMatrixJobSetup} alt="1 hour job on the Othermill" />
+
+        <Image src={millingLedMatrix} alt="Milling the LED matrix" />
+    </SideBySide>
+
+
+    I mistakening set the tool as <b>1/32in Flat End Mill</b> so my traces all came out a little rough, which I needed to sand down
+
+    <Image src={milledLedMatrix} alt="Milled top half with rough traces" />
+
+    Once the top layer was done, I flipped the board over and aligned it with the other side of the bracket that had been placed in the Othermill. Then I started the bottom layer. This was going great, until it was time to cut out the outline of the board. I hadn't taped down the board enough so I heard a loud clanging sound and saw my board lifting up. Thankfully, I was right beside the OtherMill and stopped it quickly but I lost 2 LEDs :(
+
+    <SideBySide>
+        <Image src={otherMillMessesUpLedMatrix} alt="PCB board becomes attached in Othermill" />
+
+        <Image src={brokenMilledLedMatrix} alt="Broken bottom half of PCB board" />
+    </SideBySide>
+    
+    After reapplying the tape, this time in much thinner strands so I could get everywhere, I rerean the mill job and it worked! By now, I had spent 2 hours waiting for this job and EDS was about to close so I had stop. Over the next 2 weeks I'll get back, add rivets to all the vias, stuff the board and get to program it.
+
+    <Image src={backSideLedMatrix} alt="Completed back side of PCB board" />
+</Details>

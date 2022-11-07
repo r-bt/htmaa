@@ -9,17 +9,20 @@
 	 */
      export let alt;
 
-     
+     export let width = "400px";
+
      let realSrc = src.includes('./') ? base + src.replace('./', '/') : src;
 </script>
 
-<figure>
-    <img src="{realSrc}" alt="{alt}" />
-    <figcaption align="center">
-        <!-- Come back and add state -->
-        <b>{alt}</b>
-    </figcaption>
-</figure>
+<div>
+    <figure style="--image-width: {width}">
+        <img src="{realSrc}" alt="{alt}" />
+        <figcaption align="center">
+            <!-- Come back and add state -->
+            <b>{alt}</b>
+        </figcaption>
+    </figure>
+</div>
 
 <style>
     figure {
@@ -31,6 +34,6 @@
     }
     
     img {
-        max-width: 400px;
+        max-width: var(--image-width);
     }
 </style>

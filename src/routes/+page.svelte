@@ -40,7 +40,15 @@
       <li>
         <a href="./week6">Week 06 | Computer Controlled Machining</a>
       </li>
+      <li>
+        <a href="/week7">Week 07 | Embded Programming</a>
+      </li>
+      <li>
+        <a href="./week8">Week 08 | Molding and Casting</a>
+      </li>
     </ul>
+
+    There's way too much cool things to do everything in one week so I have a <a href="./to-come-back-to">list</a> of things I want to do in the future.
   </div>
 </div>
 
