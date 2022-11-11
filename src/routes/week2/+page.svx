@@ -3,5 +3,153 @@ title: "02 | Computer Controlled Cutting"
 layout: week
 ---
 
-- [Vinyl cutting](./vinyl)
-- [Laser cutting](./laser)
+<script>
+    import { base } from '$app/paths'
+    import Image from '/src/components/Image.svelte';
+    import SideBySide from '/src/components/SideBySide.svelte'
+    import Model from '/src/components/Model.svelte'
+
+    // Cadding the ferris wheel
+    import fusionParameters from '$lib/week2-assets/fusion_parameters.png?width=600';
+    import sheetMetalBox from '$lib/week2-assets/sheet-metal-box.png?width=600';
+    import sheetMetalBoxUnfolded from '$lib/week2-assets/sheet-metal-box-unfolded.png?width=600';
+    import ferrisWheelSupport from '$lib/week2-assets/ferris-wheel-supports.png?width=600';
+    import ferrisWheelSupoortBar from '$lib/week2-assets/ferris-wheel-support-bar.png?width=600';
+    import ferrisWheelWheel from '$lib/week2-assets/ferris-wheel-wheel.png?width=600';
+    import ferrisWheelWheelSupports from '$lib/week2-assets/ferris-wheel-wheel-supports.png?width=600';
+    import ferrisWheelCart from '$lib/week2-assets/ferris-wheel-cart.png?width=600';
+    
+    // Laser cutting the ferris wheel
+    import laserCuttingParts from '$lib/week2-assets/laser-cutting-parts.jpg?width=600';
+    import ferrisWheelAssembledBase from '$lib/week2-assets/ferris-wheel-assembled-base.jpg?width=600';
+    import ferrisWheelMalletJoints from '$lib/week2-assets/ferris_wheel_mallet_joints.jpg?width=600';
+    import ferrisWheelAssembled from '$lib/week2-assets/assembled_ferris_wheel.jpg?width=600';
+    import baseSketch from '$lib/week2-assets/sketch.png?format=jpeg&width=600';
+    import partiallyAligned from '$lib/week2-assets/partiallyAligned.png?format=jpeg&width=600';
+    import middleSupport from '$lib/week2-assets/middleSupport.png?format=jpeg&width=600';
+    import bending from '$lib/week2-assets/bending.png?format=jpeg&width=600';
+    import closedBackpack from '$lib/week2-assets/Closed_backpack.jpg?format=jpeg&width=600';
+    import assemblingSupport from '$lib/week2-assets/assemblingSupport.jpg?format=jpeg&width=600';
+    import brokenPieces from '$lib/week2-assets/broken-pieces.jpg?format=jpeg&width=600';
+    import finishedWheel2 from '$lib/week2-assets/finishedWheel2.jpg?format=jpeg&width=600';
+
+    import zymOnIllustrator from '$lib/week2-assets/zym_on_illustrator.jpg?width=600';
+    import unweededVinyl from '$lib/week2-assets/unweeded_vinyl.jpg?width=600';
+    import vinylWithTransferPaper from '$lib//week2-assets/vinyl_with_transfer_paper.jpg?width=600';
+    import zymVinylOnLaptop from '$lib/week2-assets/zym_vinyl_on_laptop.jpg?width=600';
+</script>
+
+## Vinyl Cutting
+
+Our first task was to make something with Vinyl. I've some experience with Stillouete (😱– their software is incredibly dreadful) and Cricut Vinyl machines which are for hobbyists so I was curious as to the differences with a professional machine.
+ 
+Previously I had a Vinyl sticker of Bait (a creature from <a href="https://en.wikipedia.org/wiki/The_Dragon_Prince">The Dragon Prince</a>) on my laptop, however I designed this really poorly and even people who knew the show couldn't tell who the character was. I decided to replace it with another Dragon Prince character – Zym.
+
+<Image src="https://pbs.twimg.com/profile_images/1242500536173301760/In4GlVf1_400x400.jpg" alt="Zym" />
+
+This photo is in colour so firstly I imported it into Adobe Illustrator and image traced it. The result wasn't perfect so I played around with the threshold value until the right areas where in black for the vinyl cutter
+
+<Image src={zymOnIllustrator} alt="Zym image traced in Illustrator" />
+
+Next up was a giant game of USBs, USB adaptors, email, and finally WeTransfer to get the file onto the EDS computer. There I imported it into MOTs and began cutting. Once the cut was complete I had some Vinyl which looked suspiciously like Zym
+
+<Image src={unweededVinyl} alt="Unweeded vinyl of Zym" />
+
+With a handy dandy tweezers I spent the next half an hour weeding out vinyl, recutting when I messed up (😢) and finally getting all the unneeded vinyl off. Since it was going onto my laptop I then put transfer paper over the sticker.
+
+<Image src={vinylWithTransferPaper} alt="Zym Vinyl with transfer paper" />
+
+Finally, I removed my old Bait sticker and put the new Zym sticker on
+
+<Image src={zymVinylOnLaptop} alt="Zym Vinyl on laptop" />
+
+## Laser cutting
+
+The main project of Week 2 was to design a parametric construction kit – mine was of a Ferris Wheel. Literally everything went wrong so here's the story of that.
+
+#### Cadding with Fusion360
+
+For this project I wanted to:
+- Use a variety of joints
+- Make living hinges
+- Have all measurements be parametric
+- Assemble everything in Fusion to check joint lengths and if there would be collisions
+
+Fusion has a cool parameters feature where you can specify <i>User parameters</i> that can be used across the model
+
+<Image src={fusionParameters} alt="Parameters in Fusion" />
+
+I saw a cool Fusion360 render of a <a href="https://fab.cba.mit.edu/classes/863.20/CBA/people/codypaige/Projects/Week01/week01.html">past HTMAA student's</a> living hinges and wanted to try do something similiar. First mistake.
+
+<Image src={closedBackpack} alt="Fusion360 with living hinges" />
+
+I started a new sketch and drew the different sides of my base box. The top piece and small side pieces were relatively easy, I defined the width of my snap joints as a user parameter so I was able to use this to be confident everything was going to come together. 
+For the long sides I needed them to bend so I drew in some living hinges. Since living hinges require bending in Fusion but folding out when exporting to DXF, **Sheet Metal** was the ideal material to use. Unfortunately, sheet metal is **weird**. When I tried calculating the lengths of pieces so they'd bend flush against each other I couldn't get them to fit. Eventually I had to accept that there's such thing as the **Fusion Constant**, it's equal to 0.299 mm the exact size of the gap that wouldn't go away.
+
+<Image src={baseSketch} alt="Sketch of Ferris Wheel Base" />
+
+Once all the pieces were sketched I extruded one copy of each piece and then aligned these to the base. To align the piece with living hinges I first bent it with Fusion’s bend tool. This involved selecting the two ends of my living hinges and providing the bend radius (which I had previous calculated for drawing my sketch)
+
+<Image src={bending} alt="Bending sheet metal" />
+
+I didn’t extrude every piece since it was easier to mirror the aligned pieces rather than redo the align process. 
+
+<Image src={sheetMetalBox} alt="Sheet metal box with wooden apperance" />
+
+In the end it looked quite realistic and having the ability to unfold it came in very handy while laser cutting.
+
+<Image src={sheetMetalBoxUnfolded} alt="Sheet metal box with wooden apperance and unfolded side" />
+
+After the base was made I sketched out the other parts, assembling each together (with the align command) to make sure everything fitted. At the beginning everything was parameterized however as I added more sketches which interacted with previous sketches the constraints started interfering with each other. I think I should have converted more of my bodies to components and I made the mistake of having all the sides of the base be in the same sketch.
+
+Firstly I made the supporting beams. They use snap joints which fit under the top of the base.
+
+<Image src={ferrisWheelSupport} alt="Ferris Wheel Supports" />
+
+Afterwards I made two parts with press-fit joints which act the supporting beam for the two supports
+
+<Image src={ferrisWheelSupoortBar} alt="Ferris Wheel Support Bar" />
+
+Next up was the actual wheel. This component was completeley parameterized and the stokes were circular pattern so the amount of carts and their height off the ground etc can be easily changed.
+
+<Image src={ferrisWheelWheel} alt="Ferris Wheel Wheel" />
+
+Since the two wheels have to move together they needed to be joined, so a made with press-fit joints support bars
+
+<Image src={ferrisWheelWheelSupports} alt="Ferris Wheel Wheel Supports" />
+
+Finally I made the cart and attached them to the wheel with another support
+
+<Image src={ferrisWheelCart} alt="Ferris Wheel Cart" />
+
+<Model src={'FerrisWheel.glb'} orbit="-721.4deg 157.5deg auto" alt="Ferris Wheel" />
+
+#### Laser cutting the parts
+
+To actually laser cut the parts I needed to account for kerf. Thankfully there is a Fusion360 plugin, [DXF For Laser](https://apps.autodesk.com/FUSION/en/Detail/Index?id=7634902334100976871&os=Win64&appLang=en), which can create **.dxf** files from your bodies faces and offsets the dimensions to account for kerf.
+
+I exported all my bodies as .dxf files, made some test cuts, and then cut all of them out.
+
+<Image src={laserCuttingParts} alt="Parts in laser cutter" />
+
+Unfortunally, I didn't measure one of my pieces of wood correctly so the wheel actually went over my wood, which was super sad since it meant I needed to recut the wheel.
+
+<Image src={brokenPieces} alt="Half cut Ferris Wheel wheel" />
+
+Once cut I got to the fun of actually assembling and testing my living hinges
+
+<Image src={ferrisWheelAssembledBase} alt="Base of Ferris Wheel" />
+
+Some of the joints were a bit tricky and needed to be malleted in, Unfortunately it was late so some pieces were broken during this process.
+
+<SideBySide>
+    <Image src={assemblingSupport} alt="Pushing the supports into the press joints" />
+    <Image src={ferrisWheelMalletJoints} alt="Malleting joints in Ferris Wheel" />
+</SideBySide>
+
+Finally it was all assembled!
+
+<SideBySide>
+    <Image src={ferrisWheelAssembled} alt="Assembled Ferris Wheel" />
+    <Image src={finishedWheel2} alt="Assembled Ferris Wheel" />
+</SideBySide>

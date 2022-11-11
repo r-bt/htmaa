@@ -1,0 +1,148 @@
+---
+title: 09 | Input devices
+layout: week
+---
+
+<script>
+    import { base } from '$app/paths'
+
+    import Details from '/src/components/Details.svelte';
+    import Image from '/src/components/Image.svelte';
+    import Warning from '/src/components/Warning.svelte';
+    import Info from '/src/components/Info.svelte';
+    import SideBySide from '/src/components/SideBySide.svelte';  
+
+    import connectingAtmelToVCC from '$lib/week9-assets/connectingAtmelToVCC.jpg?width=600&format=jpeg&rotate=90'
+    import flashing from '$lib/week9-assets/flashing.jpg?width=600&format=jpeg&rotate=90'
+    import gettingValues from '$lib/week9-assets/gettingValues.jpg?width=600&format=jpeg'
+    import hallEffect from '$lib/week9-assets/hallEffect.jpg?width=600&format=jpeg&rotate=90'
+    import messOfCables from '$lib/week9-assets/messOfCables.jpg?width=600&format=jpeg&rotate=90'
+    import solderedBoard from '$lib/week9-assets/solderedBoard.jpg?width=600&format=jpeg'
+    import swdPinout from '$lib/week9-assets/swdPinout.jpg?width=600&format=jpeg&rotate=90'
+    import uploadingCode from '$lib/week9-assets/uploadingCode.jpg?width=600&format=jpeg'
+    import webserver from '$lib/week9-assets/webserver.jpg?quality=0.2&format=jpeg&rotate=90'
+
+    import routedBoard from '$lib/week9-assets/routedBoard.png?quality=0.2&format=jpeg'
+    import schematicForBoard from '$lib/week9-assets/schematicForBoard.png?quality=0.2&format=jpeg'
+    import newElectronics from '$lib/week9-assets/newElectronics.png?quality=0.2&format=jpeg'
+    import connectingPadSymbol from '$lib/week9-assets/connectingPadSymbol.png?quality=0.2&format=jpeg'
+    import symbol from '$lib/week9-assets/symbol.png?quality=0.2&format=jpeg'
+    import pad from '$lib/week9-assets/pad.png?quality=0.2&format=jpeg'
+</script>
+
+This week was all about input devices. I'd had some experience with breakout boards for Arduino which let you measure temperature (with thermistors) or acceleration and tilt (with an MPU) but during lecture we learned about how to build our own versions of these sensors.
+
+## Capacitive touchpad
+
+To start I wanted to make a capacitive touchpad. This had been done a ton by other HTMAA students so there were example boards and demonstrations of how this would work:
+
+- [Touchpad by Matt Blackshaw](http://fab.cba.mit.edu/classes/863.10/people/matt.blackshaw/week8.html)
+- [Multitouchpad by Matt Keeter](http://fab.cba.mit.edu/classes/863.11/people/matthew.keeter/multitouch/index.html)
+- [Nadieh Bremer](http://fabacademy.org/2021/labs/waag/students/nadieh-bremer/blog/week-11/)
+- [Robert Hart](https://roberthart56.github.io/SCFAB/SC_lab/Sensors/tx_rx_sensors/index.html)
+
+Unfortunally, while the two Matts implemenations of capacitive touch sensing is super cool they are sparse on details. I didn't give myself nearly enough time for this so I started looking into the physics behind these circuits on Monday and got lost pretty quickly.
+
+I then decided that I would just design the board and come back to try understand it later. I wanted mine to roughly match the grid Matt Blackshaw had made but I wanted my sensor on the pcb board rarther than with vinyl. 
+
+### Custom SMD part
+
+In Eagle, I started a new file and quickly realised that I had no clue how to make my own custom pads. After a brief goolge, it didn't seem like there was a fast way to do this instead everyone recommended that I make my own library. Thankfully
+[Adafruit](https://learn.adafruit.com/ktowns-ultimate-creating-parts-in-eagle-tutorial/introduction) has a nice guide for how to do this.
+
+First I created a new library by going to **File > New Electronics Library**. 
+
+<Image src={newElectronics} alt="Creating a Eagle Library" />
+
+Then I needed to create a new package. This is where our new footprint and schmematic will live.
+
+I didn't need any specical 3D model for my capacitive touch pad so I went immediately to create footprint. Here I created an SMD pad (**Place > SMD Pad**) and changed it size in the side editor which apperared to 100mil x 100mil which is 1cmx1cm. I also wanted a nice aesthetic so I rotate the pad by 45 degress.
+
+<Image src={pad} alt="Creating a pad" />
+
+With the SMD pad made I now needed to make it's symbol. I switched to create symbol (**Create new symbol**) and used the wire tool to create a box. I also needed a pin (**Place > Pin**) where I would route my wires to.
+
+<Image src={symbol} alt="Creating a symbol" />
+
+Finally the last thing I needed to do was connect my footprint and symbol. This is done in a device file (**Create new device**). Here I added my schematic and footprint and then associated them together by clicking on **Connect** and then selcting my pin and pad. After that I was done, I added the my new library to Eagle and began making my touchpad.
+
+<Image src={connectingPadSymbol} alt="Conecting to pad to symbol" />
+
+### Designing the touchpad
+
+The schematic is super simple but I did get to use Eagle's new pattern tool which made copying and positioning the pads in the schematic super easy.
+
+Unfortunally, eagle doens't support patterning while routing which meant that I had to individual move and align each pad and for the rows a 0ohm resistor to jump over the traces for the column.
+
+### Understanding how the board works
+
+At this point I had my board complete but I still didn't fully understand how it worked. I'm pretty sure I need to add resistors somewhere between the input and output bins on the board I'd use with this grid but this week is super busy with 3-day notice psets and a midterm so I knew I didn't have time to explore this further.
+
+Apparantly lots of people wanted to work with capacitive touch however so a HTMAA TA put out a small [guide](https://gitlab.cba.mit.edu/classes/863.22/site/-/tree/master/doc/input_devices/capacitive_sensing).
+
+<Info>
+    I decided I'd pause the capacitive touch grid and come back to it on a week where I have more time
+</Info>
+
+## hall Effect sensor
+
+### Designing the board
+
+Instead, I switched to designing a hall effect sensor board. I thought Neil's demonstration of positioning objects in 3D was super impressive with these and depending on how I implement my inkjet 3D printer I may need to build endstops / know the position of the inkjet printer head and hence could use this sensor.
+
+As I was in a little bit of rush (it was Tuesday by now) I decided to keep things simple and followed the example hall effect with the D11C board. Using a Attiny is something I should do in the future, but I didn't want to have to mess with setting up how it's code is flashed. 
+
+Using my previous eagle files and the diagram Neil provided I quickly create the schematic and routed the board. In Neil's version he has a trace which runs under the 3.3v regulator, however this was too small for the Othermill so I switched to a 0ohm resistor.
+
+<SideBySide>
+    <Image src={schematicForBoard} alt="Board schematic" />
+    <Image src={routedBoard} alt="Routed board" />
+</SideBySide>
+
+<Warning>
+The fab eagle library doesn't include a footprint for a hall-effect sensor so I had to find <a href="https://www.snapeda.com/parts/A1324LLHLT-T/ALLEGRO%20MICROSYSTEMS%20(VA)/view-part/?ref=digikey">one online</a>
+</Warning>
+
+### Milling the board
+
+Milling the board took a while as I unfortunally broke a couple of endmills, for entirely stupid reasons too. I forgot to close on the boxes and then while trying to take on and off the different screens hit it with my hand and broke the two endmills inside. 
+
+Then I had issues with positioning my board correcly, someone had left on the pcb bracket but I didn't realise that I needed to probe this to get the positioning correct. At one point the Othermill moved over the bracket and started coming down. Thankfully I was looking at the machine when it did this and stopped it quickly but not before it hit the bracket and destroyed the endmill.
+
+After about an hour though I fixed everything and milled my board.
+
+### Stuffing my board
+
+Stuffing was a breeze and it's cool to see how much faster I can do it now than during the second week. EDS did not have the exact hall-effect sensor which I used in my schematic (A1324 four) but the one they did have was roughly the same size and after checking it's schematic had the same pin posititons
+
+<SideBySide>
+    <Image src={hallEffect} alt="Hall Effect sensor" />
+    <Image src={solderedBoard} alt="Soldered board" />
+</SideBySide>
+
+### Flashing the bootloader board
+
+I decided to use the 2x2 pin connectors to conserve space but this meant I couldn't use the ribbon cable I had been with the Atmel-Ice. Thanfully, Anthony had broken out the Atmel's cable into indivdual strands to handle any connectors.
+
+<Image src={messOfCables} alt="Mess of cables" />
+
+I looked up the SWD pinouts and matched the numbers from the graph with the numbers on the cables and the pin they needed to go in
+
+<SideBySide>
+    <Image src={swdPinout} alt="SWD Pinout" />
+    <Image src={flashing} alt="Flashing bootloader" />
+</SideBySide>
+
+This didn't work the first time since the Atmel requires that it's VCC pin be provided with 3.3v and the 2x2 doesn't have a pin for this so I had to put a jumper wire into the 3.3 wire and connect it by hand
+
+<Image src={connectingAtmelToVCC} alt="Connecting Atmel to VCC" />
+
+### Programming the board
+
+I copied Neil's **hello.mag.USB.ino** code into the Arduino IDE and uploaded this to my board 
+
+<Image src={uploadingCode} alt="Uploading my code" />
+
+To see the visualization I downloade the webpage and javascript server Neil created. These must of been made a while ago as when I tried to run it with node I got tons of errors, once I uploaded all the libraries everything connected and when I brought a magnet close the values changed!
+ 
+<Image src={webserver} alt="Webserver" width="400px" />

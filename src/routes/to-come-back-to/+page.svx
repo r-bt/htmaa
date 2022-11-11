@@ -58,3 +58,15 @@ There's way too much every week to do so here's my list of things of things I'd 
 - [ ] Chocolate Molding
 - [ ] Glass Molding
 - [ ] Thermoforming molds
+
+**Week 9: Input devices**
+
+- [ ] Build the rest of the step response circuits
+- [ ] Build a generic board with D21E
+- [ ] Finish capacitive touchpad with software multitouch
+
+**Random Ideas:**
+
+- [ ] 3D printing gumball machine
+    - See [example](https://www.digitalharbor.org/2016/01/3d-print-dispensing-gumball-machine/)
+    - Would 3D print parts in their spheres and then drop them into the machine

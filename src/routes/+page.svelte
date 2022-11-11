@@ -10,14 +10,14 @@
   </div>
   <div class="content">
     <h2>How to Make Almost Anything</h2>
-    <p>Hi, I'm Richard. I'm a sophomore studying 6-2 (computer science and electrical engineering) at MIT. I love building things, my background is primarly software focused but since coming to MIT I've been exploring making physical things</p>
-    <p>Some past projects which may be interesting:</p>
+    <p>Hi, I'm Richard. I'm a sophomore studying 6-2 (computer science and electrical engineering) at MIT. I love building things, my background is primarly software focused but since coming to MIT I've been exploring making physical things. I've spent this semester basically living out of Metropolis one of the MIT makerspaces and am always trying to learn new making skills</p>
+    <!-- <p>Some past projects which may be interesting:</p>
     <ul>
       <li><a href="http://web.mit.edu/2.00b/www/portfolios/student_portfolio.html?s=rbeattie&a=toober">2.00b Music Toober</a></li>
       <li><a href="https://prepsheets.com">Prepsheets.com - A webapp for my parent's cafés</a></li>
       <li>An attempt at a giant pinball machine</li>
       <li>2.00b Mayhem ball game – Think fetch but for kids instead of dogs</li>
-    </ul>
+    </ul> -->
     <ul>
       <li>
         <a href="./final-project">Final Project</a>
@@ -41,10 +41,13 @@
         <a href="./week6">Week 06 | Computer Controlled Machining</a>
       </li>
       <li>
-        <a href="/week7">Week 07 | Embded Programming</a>
+        <a href="./week7">Week 07 | Embded Programming</a>
       </li>
       <li>
         <a href="./week8">Week 08 | Molding and Casting</a>
+      </li>
+      <li>
+        <a href="./week9">Week 09 | Input devices</a>
       </li>
     </ul>
 

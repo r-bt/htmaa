@@ -5,10 +5,12 @@
 	 * @type {string}
 	 */
     export let src;
+    export let orbit = 'auto';
+    export let alt = '';
 </script>
 
 <div id="model">
-    <model-viewer alt="Mesh of Appa" src="{base}/{src}" ar shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>
+    <model-viewer alt={alt} camera-orbit={orbit} src="{base}/{src}" ar shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>
 </div>
 
 <style>
