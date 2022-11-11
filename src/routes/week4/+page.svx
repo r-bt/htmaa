@@ -6,6 +6,8 @@ layout: week
 <script>
     import Details from '/src/components/Details.svelte';
     import Image from '/src/components/Image.svelte';
+    import SideBySide from '/src/components/SideBySide.svelte';
+    import Model from '/src/components/Model.svelte';
 
     import tapeOnRotatingPlatform from '$lib/week4-assets/tape_on_rotating_platform.jpg?width=600&rotate=90';
     import scanningTapeMeasure from '$lib/week4-assets/scanning_tapemeasure.jpg?width=600&rotate=90';
@@ -22,6 +24,9 @@ layout: week
     import theDeepUltimaker from '$lib/week4-assets/the_deep_ultimaker.jpg?width=600&rotate=90';
     import slicingPirateShip from '$lib/week4-assets/slicing_pirate_ship.jpg?width=600';
     import printingLowPolyShip from '$lib/week4-assets/printing_lowpoly_ship.jpg?width=600';
+    import finishedLowPolyShip from '$lib/week4-assets/finishedLowPolyBoat.jpg?width=600';
+    import finishedPirateShip from '$lib/week4-assets/finishedPirateShip.jpg?width=600';
+    import finishedPirateShip2 from '$lib/week4-assets/finishedPirateShip2.jpg?width=600';
 </script>
 
 <Details title="Brainstorming">
@@ -104,7 +109,7 @@ Here's a list of random ideas I could do:
 
     <Image src={pirateShipRender} alt="Render of pirate ship" />
 
-    <iframe src="https://mymit1789.autodesk360.com/shares/public/SH35dfcQT936092f0e43b731be09dc20a8bc?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+    <Model src='PirateShip.glb' orbit="-719.5deg 180.5deg auto" alt="Pirate ship" />
     
 </Details>
 
@@ -118,7 +123,21 @@ Here's a list of random ideas I could do:
 
     <Image src={slicingPirateShip} alt="Slicing pirate ship in Cura" />
 
-    Unfortunally, I left this step too late. When I tried to start my print the S5's screen exploded with different errors, and fine dust poured out of it's filament feeder. Instead then I copied my wheel over to a low-poly lifeguard ship I had previously made and printed that. Once the S5 is back I'll be printing ship again.
+    Unfortunally, I left this step too late. When I tried to start my print the S5's screen exploded with different errors, and fine dust poured out of it's filament feeder. Instead then I copied my wheel over to a low-poly lifeguard ship I had previously made and printed that.
 
-    <Image src={printingLowPolyShip} alt="Printing low-poly ship" />
+    <Model src='LowPolyShip.glb' alt="Low poly ship" orbit="-721.9deg 156.6deg auto" />
+
+    <SideBySide>
+        <Image src={printingLowPolyShip} alt="Printing low-poly ship" />
+        <Image src={finishedLowPolyShip} alt="Finished low poly boat" />
+    </SideBySide>
+
+    **Update: 1 week later**
+
+    The S5 was fixed so I got to print my piece. Unfortunally, I forgot to take a picture of it with all the water soluable supports but there was a ton. It took 5 days in a bath of water for everything to dissolve. I also realised once I put it in water that it didn't actually function as a boat and in fact sinks. I'm not too disappointed since I didn't design it to float, but in the future I'd love to try make a boat that does.
+
+    <SideBySide>
+        <Image src={finishedPirateShip} alt="Side view of finished pirate ship" />
+        <Image src={finishedPirateShip2} alt="Back view of finished pirate ship" />
+    </SideBySide>
 </Details>
