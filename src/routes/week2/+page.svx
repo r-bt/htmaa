@@ -88,11 +88,11 @@ For the long sides I needed them to bend so I drew in some living hinges. Since 
 
 <Image src={baseSketch} alt="Sketch of Ferris Wheel Base" />
 
-Once all the pieces were sketched I extruded one copy of each piece and then aligned these to the base. To align the piece with living hinges I first bent it with Fusion’s bend tool. This involved selecting the two ends of my living hinges and providing the bend radius (which I had previous calculated for drawing my sketch)
+Once all the pieces were sketched I extruded one copy of each piece and then aligned these to the base. To align the piece with living hinges I first bent it with Fusion's bend tool. This involved selecting the two ends of my living hinges and providing the bend radius (which I had previous calculated for drawing my sketch)
 
 <Image src={bending} alt="Bending sheet metal" />
 
-I didn’t extrude every piece since it was easier to mirror the aligned pieces rather than redo the align process. 
+I didn't extrude every piece since it was easier to mirror the aligned pieces rather than redo the align process. 
 
 <Image src={sheetMetalBox} alt="Sheet metal box with wooden apperance" />
 

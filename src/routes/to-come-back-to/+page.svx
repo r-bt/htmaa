@@ -32,6 +32,7 @@ There's way too much every week to do so here's my list of things of things I'd 
 - [ ] Use a powder printer
 - [ ] CAD using code
 - [ ] Print ball bearings
+- [ ] Print a screw with nut already attached
 
 **Week 5: Electronics Design**
 
@@ -58,15 +59,33 @@ There's way too much every week to do so here's my list of things of things I'd 
 - [ ] Chocolate Molding
 - [ ] Glass Molding
 - [ ] Thermoforming molds
+- [ ] 3D print two-part molds
+- [ ] Mold a candle
 
 **Week 9: Input devices**
 
 - [ ] Build the rest of the step response circuits
 - [ ] Build a generic board with D21E
 - [ ] Finish capacitive touchpad with software multitouch
+- [ ] Experiment with 3D hull effect sensor
+- [ ] Look into how charlieplexing / multiplexing buttons works
+
+**Week 10: Output devices**
+- [ ] Charlieplex led board
+- [ ] Multplex led board
+- [ ] Make flexible PCB
+- [ ] Figure out correct depth for OtherMill PCB engraving bit
+
+**Week 11: Networking**
+- [ ] Make USB rubber ducky
+- [ ] Make bluetooth HID to type kerb into Metropolis iPad
+- [ ] Make Rev 2 of dev board
+    - Break out all non-neccessary components (microusb, barrel jack, etc?)
 
 **Random Ideas:**
 
 - [ ] 3D printing gumball machine
     - See [example](https://www.digitalharbor.org/2016/01/3d-print-dispensing-gumball-machine/)
     - Would 3D print parts in their spheres and then drop them into the machine
+- [ ] Scrape all past Fab lab / HTMAA projects, sort by week, show in a cool list
+- [ ] Go through past Fab lab / HTMAA projects and create a list of the ones I think are cool / would like to do something similar in the future / etc.

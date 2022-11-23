@@ -49,6 +49,12 @@
       <li>
         <a href="./week9">Week 09 | Input devices</a>
       </li>
+      <li>
+        <a href="./week10">Week 10 | Output devices</a>
+      </li>
+      <li>
+        <a href="./week11">Week 11 | Networking and Communication</a>
+      </li>
     </ul>
 
     There's way too much cool things to do everything in one week so I have a <a href="./to-come-back-to">list</a> of things I want to do in the future.
