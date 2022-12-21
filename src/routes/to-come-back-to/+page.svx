@@ -33,6 +33,7 @@ There's way too much every week to do so here's my list of things of things I'd 
 - [ ] CAD using code
 - [ ] Print ball bearings
 - [ ] Print a screw with nut already attached
+- [ ] [Print a lithoplane](https://lithophanemaker.com/index.html)
 
 **Week 5: Electronics Design**
 
@@ -82,6 +83,11 @@ There's way too much every week to do so here's my list of things of things I'd 
 - [ ] Make Rev 2 of dev board
     - Break out all non-neccessary components (microusb, barrel jack, etc?)
 
+**Week 12: Application and interface programming**
+- [ ] Learn three.js
+- [ ] Build fruit-ninja game except attach MMU to a 3D printed sword
+    - Positon can't just be measured with an accelerometer
+
 **Random Ideas:**
 
 - [ ] 3D printing gumball machine
@@ -89,3 +95,4 @@ There's way too much every week to do so here's my list of things of things I'd 
     - Would 3D print parts in their spheres and then drop them into the machine
 - [ ] Scrape all past Fab lab / HTMAA projects, sort by week, show in a cool list
 - [ ] Go through past Fab lab / HTMAA projects and create a list of the ones I think are cool / would like to do something similar in the future / etc.
+- [ ] Make carcassone tiles which function as mesh network

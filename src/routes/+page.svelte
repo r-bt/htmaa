@@ -55,6 +55,15 @@
       <li>
         <a href="./week11">Week 11 | Networking and Communication</a>
       </li>
+      <li>
+        <a href="./week12">Week 12 | Application programming</a>
+      </li>
+      <li>
+        <a href="./week13">Week 13 | Machine Building</a>
+      </li>
+      <li>
+        <a href="./week14">Week 13 | Wildcard Week</a>
+      </li>
     </ul>
 
     There's way too much cool things to do everything in one week so I have a <a href="./to-come-back-to">list</a> of things I want to do in the future.

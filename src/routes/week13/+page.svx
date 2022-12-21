@@ -1,0 +1,89 @@
+---
+title: 13 | Machine Building
+layout: week
+---
+
+<script>
+    import { base } from '$app/paths'
+
+    import Details from '/src/components/Details.svelte';
+    import Image from '/src/components/Image.svelte';
+    import Warning from '/src/components/Warning.svelte';
+    import Info from '/src/components/Info.svelte';
+    import SideBySide from '/src/components/SideBySide.svelte';
+
+    import arms from '$lib/week13-assets/arms.png?width=600&format=jpeg'
+    import assembledEffectorSide from '$lib/week13-assets/assembled-effector-side.jpg?width=600&format=jpeg'
+    import assembledEffector from '$lib/week13-assets/assembled-effector.jpg?width=600&format=jpeg'
+    import assembledEffector3 from '$lib/week13-assets/assembled-effector3.jpg?width=600&format=jpeg'
+    import caddedServoHolder from '$lib/week13-assets/cadded-servo-holder.png?width=600&format=jpeg'
+    import roundedCorners from '$lib/week13-assets/rounded-corners.png?width=600&format=jpeg'
+    import servoModel from '$lib/week13-assets/servo-model.png?width=600&format=jpeg'
+    import sharpieInHolder from '$lib/week13-assets/sharpie-in-holder.png?width=600&format=jpeg'
+    import sketchedBase from '$lib/week13-assets/sketched-base.png?width=600&format=jpeg'
+    import urumbot from '$lib/week13-assets/urumbot.jpg?width=600&format=jpeg'
+    import NeilFace from '$lib/week13-assets/neil-face.jpg?width=600&format=jpeg&rotate=270'
+
+</script>
+
+This week was a fun one. There was no individual project instead the entire section worked together to build a drawing robot. Of course, with such a large project in such a short time we had to break into sub teams. On a high level there were three teams: **software**, **firmware** and **hardware**. I worked on the end effector for the hardware team but you can read about the other teams at our [detailed write up](https://fab.cba.mit.edu/classes/MAS.863/EECS/people/machine_week/)
+
+## End Effector 
+
+For my final project I need to pick up and use sharpies to colour in 3D prints. This is similar to the requirement for this week to have a pen / sharpie / some other drawing instruments that can be moved up and down to draw on the paper. I decided to work on this as I hope I can repurpose it. 
+
+For the end effector we based it off the [UrumbotXY](https://gitlab.cba.mit.edu/neilg/urumbu/-/tree/master/UrumbotXY) drawing machine end effector. It has a pen holder connected to two arms. One arm can be rotated by a servo while the other freely rotates. Due to this for small rotations the holder moves vertically allowing the pen to be put up and down. 
+
+<Image src={urumbot} alt="Urumbot's end effector" />
+
+As we had changed some of the Urumbot's sizes and used different thicknesses for materials we first measured all our new parts and decided on which servo to use. Anthony had Mini servos and standard size servos. We decided on using the **MG996Rs** to be sure we'd have enough force to engage the pen. 
+
+To design the servo holder we first imported the model of our drawing machine's effector holder and adjusted the thickness to match the acrylic we had ended up laser cutting. 
+
+Then we projected this component into a new sketch to ensure we had the right dimensions for the servo holder. We cut out a section for the servo to be pressed into and also holes for the screws. Unfortunately we placed the hole for the metal rod too close to the screw holes such that the heads of the screws bumped into it making it unusable.
+
+<SideBySide>
+    <Image src={sketchedBase} alt="Sketch of imported base" />
+    <Image src={caddedServoHolder} alt="Servo holder part" />
+</SideBySide>
+
+Next we designed the arms. The freely rotating arm was simple but for the arm that was to be attached to the servo we needed a model for the servo horn. Thankfully we found a model of the servo on [GrabCab](https://grabcad.com/library/servo-motor-mg996r-1) and imported that.
+
+<Image src={servoModel} alt="Imported servo model with horns" />
+
+We projected the two prong horn into a new sketch, removed one of the horns and scaled it down. Then we sketched an arm around it. 
+
+<Image src={arms} alt="Arms" />
+
+Finally for the sharpie holder. We decided to have something where the sharpie could sit inside to make it easy to switch the sharpie out. We first went back to Grab found but this time for a [sharpie model](https://grabcad.com/library/sharpie-fine-point-2). Then we sketched and extruded the holder for the sharpie which we combined with the sharpie model to get the right gap for the sharpie to sit in. 
+
+<Image src={sharpieInHolder} alt="Sharpie model in holder to perform cut" />
+
+Finally we extruded a wall around the sharpie to hold it in place. To give this a bit more strength we rounded the sides into the base by extruding out an offset and cutting into this using pipes. 
+
+<Image src={roundedCorners} alt="Rounded corners to improve strength" />
+
+Then it was also ready to go to the 3D printer. Unfortunately, we printed it with draft settings the first time which meant all the parts snapped when a bit of pressure was applied but we printed them again this time with 20% triangle infill and it worked great. 
+
+Once they were all ready, we attached all the parts with M3 and M5 nuts and attached it to the drawing machine.
+
+<SideBySide>
+    <Image src={assembledEffector} alt="Assembled End Effector" />
+    <Image src={assembledEffectorSide} alt="Side view of assembled end effector" />
+</SideBySide>
+
+## The Drawing Machine
+
+There were a lot of steps between attaching the end effector and getting it to draw (and at least a dozen of them involved hot glue) but in the end it worked. 
+
+First we drew Kirby to test out our horitzontal line feature
+
+<video src="/drawing-robot-fast.mp4" controls />
+
+And then to test out faster drawing with dots with did Neil's face
+
+<video src="/drawing-robot-face.mp4" controls />
+
+which came out great
+
+<Image src={NeilFace} alt="Drawing of Neil's face" />

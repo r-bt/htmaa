@@ -5,6 +5,7 @@
      export let title;
 
      import Avatar from "/src/components/Avatar.svelte";
+     import 'prism-theme-night-owl';
 </script>
 
 <Avatar />

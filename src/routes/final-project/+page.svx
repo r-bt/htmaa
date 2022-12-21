@@ -69,3 +69,50 @@ When I presented in class Neil recommended that I try to take it in spirals. Wha
 ## Other useful links
 
 - [Pallete 3 Pro](https://www.mosaicmfg.com/products/palette-3-pro) - It's like the Prusa MMU2S except it works with any printer.
+
+<h2>Which printer should I use?</h2>
+
+Anthony was able to source two printers which I could modify: Ender 3 & an AnyCubic Mega S. I've used an Ender before but never an AnyCubic so I'm going to try quickly decide between them
+
+**Pros of Ender:**
+- Community (Lots of people have hacked Enders, made addons for them, etc)
+- Open Source (open source hardware and firmware should make this easy to work with)
+
+**Pros of AnyCubic Mega S:**
+- Has a better heated bed
+- Filament sensor
+
+Due to the size of the Ender's community I've decided to go with that.
+
+## Parts that I need
+
+I need to have these submitted by Dec 9th so I'm currently thinking. I'm list the required amount but I should probably ask for some extra
+in case things break. Which they will :)
+
+- BLTouch Level Sensor 
+    - I tried manually leveling but it has awful adhesion to the center of the bed
+- SAMD11C
+    - For the servo controller
+- 2x Toshiba H-Bridge
+- Capacitors? 
+- Resistors?
+- Assorted sharpies
+- A servo
+    - How heavy is this. Could a micro one work?
+- 
+
+
+## Is this going to be sufficent
+
+- If there is more time we could build our own optical sensor 
+- We need to do systems integration. So where are we going to put our circuit board. 
+    - Let's integrate it into a fan which can over the fan for the current electronics
+- We'll use laser cutting for the box that will hold the servo and tool change
+
+## Random links 
+
+- https://www.reddit.com/r/klippers/comments/yilowz/how_to_use_i2c_for_miscellaneous_tasks/
+
+## Steps
+
+- Remember had to enable I2C on the Raspberry Pi

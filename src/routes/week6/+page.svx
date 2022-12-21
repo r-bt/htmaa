@@ -25,11 +25,26 @@ layout: week
     import flood from '$lib/week6-assets/flood.jpg?width=600&format=jpg';
     import makeshiftMop from '$lib/week6-assets/makeshift-mop.jpg?width=600&format=jpg';
     import makeshiftDryer from '$lib/week6-assets/makeshift-dryer.jpg?width=600&format=jpg';
-    import sinkOverflowing from '$lib/week6-assets/sink-overflowing.jpg?width=600&format=jpg';
+    import sinkOverflowing from '$lib/week6-assets/sink-overflowing.jpg?width=600&format=jpg&rotate=90';
     import cncRouter from '$lib/week6-assets/cnc-router.jpg?width=600&format=jpg';
     import cncRouterComputer from '$lib/week6-assets/cnc-router-computer.jpg?width=600&format=jpg';
     import cncRouterCutting from '$lib/week6-assets/cnc-router-cutting.jpg?width=600&format=jpg';
     import woodPile from '$lib/week6-assets/wood-pile.jpg?width=600&format=jpg';
+
+    import aNewHome from '$lib/week6extra-assets/a-new-home.jpg?width=600&format=jpeg'
+    import backCushion from '$lib/week6extra-assets/back-cushion.jpg?width=600&format=jpeg'
+    import bandsawLegs from '$lib/week6extra-assets/bandsaw-legs.jpg?width=600&format=jpeg&rotate=90'
+    import coveredBack from '$lib/week6extra-assets/covered-back.jpg?width=600&format=jpeg&rotate=180'
+    import coveringBack from '$lib/week6extra-assets/covering-back.jpg?width=600&format=jpeg'
+    import cuttingBeanbagStuffing from '$lib/week6extra-assets/cutting-beanbag-stuffing.jpg?width=600&format=jpeg'
+    import deskUnfolded from '$lib/week6extra-assets/desk-unfolded.jpg?width=600&format=jpeg'
+    import finishedLegs from '$lib/week6extra-assets/finished-legs.jpg?width=600&format=jpeg&rotate=90'
+    import newBackSupport from '$lib/week6extra-assets/new-back-support.jpg?width=700&format=jpeg&rotate=90'
+    import rippedBack from '$lib/week6extra-assets/ripped-back.jpg?width=600&format=jpeg&rotate=90'
+    import ultimateApproval from '$lib/week6extra-assets/ultimate-approval.jpg?width=600&format=jpeg'
+    import ultimateApproval2 from '$lib/week6extra-assets/ultimate-approval2.jpg?width=600&format=jpeg'
+    import unfoldingDesk from '$lib/week6extra-assets/unfolding-desk.jpg?width=600&format=jpeg'
+    import withBeanbag from '$lib/week6extra-assets/with-beanbag.jpg?width=600&format=jpeg'
 </script>
 
 <Warning>
@@ -95,10 +110,11 @@ layout: week
             - In a couch you don't have to worry about this as much since the back cushion deforms to match the sitter's back shape.
     - The part of a chair's back above 14" and below 7" should gently slope away from the back support to not have any hard bars which would dig into the sitter's back.
 
+    <SideBySide>
+        <Image src={lee1} alt="Drawing from Lee" />
+        <Image src={lee2} alt="Drawing from Lee" />
+    </SideBySide>
 
-    <Image src={lee1} alt="Drawing from Lee" />
-
-    [Second drawigg]
 
     After, hearing all of these and making some comfort adjustments we talked about the structures safety. Lee recommended attaching triangular blocks at all the corners to distribute the uneven weight and agreed to avoid finer-joints. 
     
@@ -167,9 +183,14 @@ layout: week
 
     Eventually, it was our turn to cut. The Onsrud at N51 has a vaccum figure so all we had to do was to place our first OSB piece on the table and engage the vaccum. We did a test run of the job with the z-index set to 1, and when this looked fine ran the actual job.
 
+    <SideBySide>
+        <Image src={cncRouter} alt="The CNC Router" />
+        <Image src={cncRouterCutting} />
+    </SideBySide>
+
     Everything continued looking great, until I saw a small stream of water leak from under the router. Then 4 streams. Then a whole river. I looked behind the router and someone had left the tap on, it had filled the sink and now it was overflowing all over the shop. 
 
-    [Image of sink]
+    <Image src={sinkOverflowing} alt="Overflowing sink" />
 
     After frantically runnining to turn it off, everyone had noticed the water. We paused our job and started cleaning up the **Great 2022 Flood of N51**
 
@@ -194,19 +215,110 @@ layout: week
 </Details>
 
 <Details title="Building the couch">
-    Fianlly, it was time to build the couch. For the glue-no-glue blocks we got a beam of plywood from Edgerton and cut it up on the table saw (I got to learn a new tool :)). I placed the different parts of my couch/platform together, put blocks in the corner, clamped everything together, and drilled. It took hours. Sometimes the screws would go in perfectly, undertimes I'd hear a rip as my glue block fell apart. I never wished more that I used finger joints.
+    Fianlly, it was time to build the couch. For the glue-no-glue blocks we got a beam of plywood from Edgerton and cut it up on the table saw (I got to learn a new tool :)). I placed the different parts of my couch/platform together, put blocks in the corner, clamped everything together, and drilled. It took hours. Sometimes the screws would go in perfectly, undertimes I'd hear a rip as my glue block fell apart.
+    
+    <Info>
+        Note from future Richard: Pilot Holes! Pilot Holes! Pilot Holes! You first drill the hole and then put the screw in. It makes things a lot easier.
+    </Info>
+
+    I never wished more that I used finger joints.
 
     <Warning>
         <b>Lesson 4:</b> Use finger joints.
     </Warning>
 
-    Eventually it was complete. Well sort-of I ran out of time to attach the desk, but I'll go back to do that. 
-
-    Finally I needed to test it
+    Now I needed to test it
 
     <SideBySide>
         <Image src={assembledCouch} alt="Assembled" />
         <Image src={testingCOuch} alt="Testing" />
     </SideBySide>
-   
+
+    <h3>Where's the desk</h3>
+
+    Here's future Richard (at least future from where the content above was written). I came back after class to get the desk working. I had gotten hinges from Edgerton Student Center so attached those to one of the arm rests and then on the opposite side of the same piece the other to connect the two arms.
+
+    This meant the desks opens up sort-of-weirdly 
+
+    <!-- <Image src={} -->
+
+    but it hangs nicely at the side. Well sort-of nicely I've been told it could also funciton as a nut-cracker in addition to being a desk. So yeah, don't put you're fingers anywhere near the gap. 
+
+    
 </Details>
+
+## Finishing the couch
+Now that the couch was assembled the real hard part began. Finishing it.
+
+### Fixing the structural issues
+
+First, I tried testing the couch. When I sat down – well sat is unfair. The couch was soo low I sort of fell down. I pressed my back against the back of the couch and hard a loud snap sound as the wood blocks all failed. Oh no!
+
+<Image src={rippedBack} alt="The broken (and now wobbly) back of couch" />
+
+Ok so there were two structural changes to make:
+1. I need to increase the height 
+2. I need to reinforce the back
+
+I was able to get a 2x4 wooden plank from the Edgerton student center which I cut into four pieces using a bandsaw to add to the height of my couch
+
+<SideBySide>
+    <Image src={bandsawLegs} alt="Bandsawing the legs" />
+    <Image src={finishedLegs} alt="The cut legs" />
+</SideBySide>
+
+I attached these directly to the OSB using screws to maximize stability. Then I used the remaining part of the plank to cut out triangles to replace the triangles I had previously cut on the CNC router.
+
+<Image src={newBackSupport} alt="New back support triangles" />
+
+### Adding a back
+
+Honestly, the Edgerton Student Center is the MIT equivilent of the Harry Potter room of requirements. If you need something, you just have to go, ask for it, and someone inside has it. In my case I needed some sort of backing. Thankfully Edgerton had left over foam from somone's project, which I repurposed for the back.
+
+<Image src={backCushion} alt="Repurposed foam for a back cushion" />
+
+Then I got some fabric (again from Edgerton) and used a staple gun to attach this to the wood behind the couch and improve the couch's looks over just plain OSB.
+
+<Image src={coveringBack} alt="Covering the back" />
+
+### Wrapping it in mesh
+
+At this point I wanted to protect myself from the sharp parts of the OSB in the base, so I covered it in a grey fabric again using the staple gun and lots of manuvering to hold the piece at each tight at each of the corners.
+
+Yay, it's starting to look passable 
+
+<Image src={coveredBack} alt="Couch with back and base covered" />
+
+### Making a beanbag
+
+I've always wanted a beanbag but never had one so early on I decided that instead of having a traditional cushion my couch would have a beanbag. 
+
+After talking to some people and going on Amazon though, I realised bean bag padding is a little big expensive. Not too much, but I'm a broke college student. 
+
+So instead, back in the Edgerton Student Center I found someone's old mattreess topper. It was a little bit disgusting to say the least, like there were haris, but it was free so what am I going to do. 
+
+I cut this up into tiny little cubes and placed them all in a bag. 
+
+<Image src={cuttingBeanbagStuffing} alt="Cutting the beanbag stuffing" />
+
+Of course, not my actual bean bag. That I needed to sew. I got a free piece of green fabric, cut it into 6 sections (bottom, top, and then 4 sides) and sewed these all together. Then I cut a hole in one of the pieces from where I was able to pull out the outside of the cushion (since I sewed it inside out to make sure the seams were not visible) and sew on a zipper.
+
+From there, I put all the cut up mattress cubes into the bag and the bean bag was made.
+
+<!-- <Image  -->
+
+## Finding it a home 
+
+Now, I had a working couch, and it was time to give it to Edgerton 
+
+<SideBySide>
+    <Image src={aNewHome} alt="The couch chilling in Edgerton" />
+    <Image src={deskUnfolded} alt="Unfolded desk" />
+</SideBySide>
+
+At first everyone was a bit hestiant to use it but that all changed after it got the ultimate stamp of approval.
+
+<SideBySide>
+    <Image src={ultimateApproval} alt="Dash using my couch" />
+    <Image src={ultimateApproval2} alt="Dash looking extra cute using my couch" />
+</SideBySide>

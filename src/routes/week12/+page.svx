@@ -1,0 +1,249 @@
+---
+title: 12 | Interface and Application programming
+layout: week
+---
+
+<script>
+	import { onMount } from 'svelte';
+	import { createScene } from './scene.js';
+	import Warning from '/src/components/Warning.svelte';
+	import Prism from 'svelte-prism'
+
+	let el;
+	onMount(() => {
+		createScene(el);
+	});
+
+	let code1 = `
+		void setup() {
+
+		}
+	`
+</script>
+
+For this week our assignment was to <i>write an application that interfaces a user with an input &/or output device that you made</i>
+
+In input devices week I had made a hall-effect sensor but honestly I've made so many boards in the weeks since that when I went to try find it it was lost :(. Aww well. So I decided that I'd fix my dev board (which didn't work last week) and try build a breakout board for it
+
+## Fixing the dev board
+
+Firstly, I had to figure out what went wrong with my dev board last week. 
+
+<Warning>
+	As a quick refresher there were two major errors:
+	<ul>
+		<li>When I tried to remove the microusb cable from the microUSB port it ripped off the connector along with the traces</li>
+		<li>When I powered the board with the barell jack connector, smoke appeared and the chip started to bubble!</li>
+	</ul>
+</Warning>
+
+For the second one I suspected that my polarity was wrong. I had talked to Anthony before placing the connector in Eagle but unfortunately barell connectors aren't actually standarized. I had thought that ground was connected to the exposed metal on the side but it was actually live and hence my board got fried. At least using my power cable. Cause the polarity of the barell jack connector isn't decided by the connector but rarther the barell you stick into it. On every power adaptor it should include a sign which tells you the polarity. In my cause the (+) is connected to the inside while ground is on the outside which correspons to ground being the short pins and live being the large side pin.
+
+<!-- <Image src={} alt="Barell Polarity" /> -->
+
+I had gotten this all confused when I soldered my inital dev board and so actually had the right footprint down, but thought I had it wrong so soldered on the barrell connector backwards which then fried the board once I connected it to power. All well.
+
+For the first issue, I talked to Anthony and he said – Yeah, that happens. The trick is to always press down when removing the cable from the connector. 
+
+Ok then. I therefore remilled my dev board, stuffed it (except this time with the correct barrell connector orientation), reflashed it and viola it worked! 
+
+<!-- <SideBySide> -->
+
+Then the moment of truth. I connected it up to my power source and....the red power light came on and there was no puff of smoke. Yay :)
+
+## Designing the accelerometer
+
+For the accelerometer, I wanted to make it as a breakout board for my dev board. Soldering, flashing and debugging a microcontroller every week had gotten tiring so I thought the breakout approach would be easier.
+
+I decided to use the ADXL343 3 axis accelerometer since I couldn't see any of the other ones in the EDS lab. In hindsight I should of asked for one of the 6 axis ones since I'd have been able to do nicer visualizations with it.
+
+I based my breakout board off Neil's [hello.ADXL343 board](http://academy.cba.mit.edu/classes/input_devices/accel/hello.ADXL343.png). However this design uses a Attiny45 which meant I was confused about which parts (capacitors / resistors / etc) where on the board for the Attiny verus the ADXL343. So I went into EDS and asked Anthony
+
+### What's a coupling capacitor?
+
+I don't understand this completely but when I asked Anthony he said the capacitors are there as **coupling capacitors**. The voltage from the regulator can introduce noise into the circuit since despite saying it's DC it still oscillates slightly. The coupling capacitor however, smooths out these oscillations, removing noise and hence making our readings more accurate. 
+
+I need to look into further however, so I'll update here when I do.
+
+### What are all the pins
+
+With the coupling capacitor confused addressed, I know needed to know what all the pins did. So I pulled up the [data sheet](https://www.analog.com/media/en/technical-documentation/data-sheets/adxl343.pdf) which had a handy table listing what each pin does:
+
+Based on this I made some decisions:
+- The **interrupt pins** are useful if you want to know instantly about sudden changes (e.g. for a fall decector). Since I don't I left this unconnected
+- The **SDO/ALT ADDRESS pin** can be used to tell the chip to use a different I2C address if we're going to use multiple of them. We're not, so I'll wire this to ground 
+- The CS pin can be used to switch between I2C and SPI I think? I copied how Neil routed his
+
+### Making the break out board 
+
+In Eagle I created the schematic. It was straight-forward, I followed the board layout and had the SDA, SCL, 3.3v and GND going to pins on the side.
+
+I also included an LED to let me know if it is powered.
+
+<!-- <Image  -->
+
+Routing it was a little more complicated since I wanted to make it as small as possible, but by putting one of the resistors in the right place I was able to get a trace underneath and have a tight layout.
+
+<!-- <Image  -->
+
+### Milling the accelerometer
+
+By now, I have gotten into the hang of milling boards and it was easy to do on the OtherMill.
+
+<!-- <Image  -->
+
+### Stuffing the accelerometer
+
+This was a very tricky board. All the pads are directly underneath the casing of the accelerometer so it's not possible to solder them directly with a soldering iron. Instead, I put paste on all the pads on the pcb, pressed down the accelerometer and heated it with a heat gun. I was pretty nervous about this since if anything went wrong I wouldn't be able to see it by eye. I spent a while with a multimeter, testing the connections between all the various traces and when it all looked good I plugged it in. The LED stayed off. What was up.
+
+### A trace the size of a hair 
+
+I went to a microscope and took a look again at the board. In one of the corners there was a piece of copper, the width of a hair connecting SCL to SDA on my dev board. The width of a hair. With a tweezers I removed this and everything worked.
+
+Once removed, the light turned on when it was connected to the board 
+
+<!-- <Image /> -->
+
+## Programming 
+
+To begin I wanted to make sure I could get some measurments. I uploaded some example code I found on Adafruit's website and got it to display the X, Y and Z values.
+
+Then it was time to make an interface.
+
+### Getting raw and pitch
+
+I wanted to first try do something with processing. I found a [guide](https://howtomechatronics.com/tutorials/arduino/how-to-track-orientation-with-arduino-and-adxl345-accelerometer/) for reading the accelerometer's values and varying position based on that so decided to try that. This is my summary of what they explained to me :)
+
+First, the accelerometer uses I2C for communicated so we need to include the **Wire** library
+
+```arduino
+#include <Wire.h>
+```
+
+Next every I2C device has an address. For the ADXL345 it's set to 0x53 when the **SDO/ALT ADDRESS pin** is grounded
+
+```arduino
+int ADXL345 = 0x53;
+```
+
+Back in the datasheet it specifies what you have to set in each register to get data. First we need to set the D3 bit of the POWER_CTL register high in the setup function
+
+```arduino
+void setup() {
+	Wire.begin();
+	Wire.beginTransmission(ADXL345); // Start communicating with the device
+	Wire.write(0x2D);
+	Wire.write(8); // 8 becomes 0000 1000 so sets the third bit high
+}
+```
+
+Then we have to read the values. Again we can view the addresses of the registers from the datasheet
+
+<!-- <Image  -->
+
+We should start with the 0x32 register and then read the next 6 registers which we can do with the **requestionFrom()** function.
+
+We need to be careful that the values are stored in twos-compliant form. To get it in a form I can work with we read the first register and then **OR** it with the value of second register shifted left by 8.
+
+```arduino
+Wire.beginTransmission(ADXL345);
+Wire.write(0x32);
+Wire.endTransmission(false);
+Wire.requestFrom(ADXL345, 6, true); 
+X_out = (Wire.read() | Wire.read() << 8); 
+Y_out = (Wire.read() | Wire.read() << 8);
+Z_out = (Wire.read() | Wire.read() << 8);
+```
+
+Finally as per the documentation, the sensor has a default sensitivity of +/- 2g. Digital accelerometer express their values in LSB/g (least significant bit per g) so we need to divide the values from all our registers by 256 to get /g
+
+```arduino
+X_out = X_out/256; 
+Y_out = Y_out/256;
+Z_out = Z_out/256;
+```
+
+And then we're ready to go and can print out the data 
+
+```arduino
+Serial.print("Xa= ");
+Serial.print(X_out);
+Serial.print("   Ya= ");
+Serial.print(Y_out);
+Serial.print("   Za= ");
+Serial.println(Z_out);
+```
+
+Unfortunally, a 3 axis accelerometer can only provide readings from two axis so we can only get roll and pitch (and not yaw).
+
+```arduino
+roll = atan(Y_out / sqrt(pow(X_out, 2) + pow(Z_out, 2))) * 180 / PI;
+pitch = atan(-1 * X_out / sqrt(pow(Y_out, 2) + pow(Z_out, 2))) * 180 / PI;
+
+Serial.print(rollF);
+Serial.print("/");
+Serial.println(pitchF);
+```
+
+### Interfacing with processing 
+
+Once I had the accelerometer values it was time to view them in processing. Processing is a Arduino-esque tool (looks the same, codes the same) which provides easy tools to make visualizations.
+
+First up we need to setup serial to get the values from the board
+
+```arduino
+import processing.serial.*;
+Serial myPort;
+
+void setup() {
+  myPort = new Serial(this, "COM8", 9600); // starts the serial communication
+  myPort.bufferUntil('\n');
+}
+```
+
+Processing will run the **serialEvent** function whenever there is data available
+
+```arduino
+float roll, pitch;
+
+void serialEvent (Serial myPort) {
+	// The Arduino seperates groups of values by newline returns
+	data = myPort.readStringUntil('\n');
+	if (data != null) {
+		data = trim(data);
+		String items[] = split(data, '/');
+		if (items.length > 1) {
+			roll = float(items[0]);
+			pitch = float(items[1]);
+		}
+	}
+}
+```
+
+Now with the values in hand we can display them. In processing the equivilent of **loop** is **draw**
+
+```arduino
+	void setup() {
+		// Specifiy the size of the window
+		size (960, 640, P3D);
+		...
+	}
+
+	void draw() {
+		// Place the object in the middle of the screen
+		translate(width/2, height/2, 0);
+		// Specify the background color 
+		background(10);
+		// Specify the text size 
+		textSize(22);
+		text("Roll: " + int(roll) + "     Pitch: " + int(pitch), -100, 265);
+
+		// Create a box 
+		rotateX(radians(roll));
+  		rotateZ(radians(-pitch));
+		fill(0, 50, 130);
+  		box (200, 40, 100); // Draw box
+	}
+```
+
+Then with everything finished I got some cool results
