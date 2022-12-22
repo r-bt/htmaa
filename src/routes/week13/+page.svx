@@ -11,6 +11,7 @@ layout: week
     import Warning from '/src/components/Warning.svelte';
     import Info from '/src/components/Info.svelte';
     import SideBySide from '/src/components/SideBySide.svelte';
+    import Model from '/src/components/Model.svelte';
 
     import arms from '$lib/week13-assets/arms.png?width=600&format=jpeg'
     import assembledEffectorSide from '$lib/week13-assets/assembled-effector-side.jpg?width=600&format=jpeg'
@@ -65,6 +66,8 @@ Finally we extruded a wall around the sharpie to hold it in place. To give this 
 
 Then it was also ready to go to the 3D printer. Unfortunately, we printed it with draft settings the first time which meant all the parts snapped when a bit of pressure was applied but we printed them again this time with 20% triangle infill and it worked great. 
 
+<Model src="ServoHolder.gltf" orbit="1.951deg 154.1deg 319.8m" alt="Model of the servo holder" />
+
 Once they were all ready, we attached all the parts with M3 and M5 nuts and attached it to the drawing machine.
 
 <SideBySide>
@@ -78,11 +81,11 @@ There were a lot of steps between attaching the end effector and getting it to d
 
 First we drew Kirby to test out our horitzontal line feature
 
-<video src="/drawing-robot-fast.mp4" controls />
+<video src="{base}/drawing-robot-fast.mp4" controls />
 
 And then to test out faster drawing with dots with did Neil's face
 
-<video src="/drawing-robot-face.mp4" controls />
+<video src="{base}/drawing-robot-face.mp4" controls />
 
 which came out great
 

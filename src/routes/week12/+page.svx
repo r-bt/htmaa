@@ -5,14 +5,20 @@ layout: week
 
 <script>
 	import { onMount } from 'svelte';
-	import { createScene } from './scene.js';
 	import Warning from '/src/components/Warning.svelte';
-	import Prism from 'svelte-prism'
+	import Prism from 'svelte-prism';
+	import Image from '/src/components/Image.svelte';
 
-	let el;
-	onMount(() => {
-		createScene(el);
-	});
+	import ADXL343PinConfiguration from '$lib/week12-assets/ADXL343-Pin-Configuration.png?width=600&format=jpeg'
+	import accelerometerReadings from '$lib/week12-assets/accelerometer-readings.jpg?width=600&format=jpeg'
+	import accelerometerRegisters from '$lib/week12-assets/accelerometer-registers.png?width=600&format=jpeg'
+	import barellPolarity from '$lib/week12-assets/barell-polarity.png?width=600&format=jpeg'
+	import devBoardWithPower from '$lib/week12-assets/dev-board-with-power.jpg?width=600&format=jpeg'
+	import flashingDevBoard from '$lib/week12-assets/flashing-dev-board.jpg?width=600&format=jpeg'
+	import millingTheBoards from '$lib/week12-assets/milling-the-boards.jpg?width=600&format=jpeg&rotate=90'
+	import newlyMilledDevBoard from '$lib/week12-assets/newly-milled-dev-board.jpg?width=600&format=jpeg'
+	import processingGui from '$lib/week12-assets/processing-gui.png?width=600&format=jpeg'
+	import valueRegisters from '$lib/week12-assets/value-registers.png?width=600&format=jpeg'
 
 	let code1 = `
 		void setup() {
@@ -74,13 +80,15 @@ Based on this I made some decisions:
 - The **SDO/ALT ADDRESS pin** can be used to tell the chip to use a different I2C address if we're going to use multiple of them. We're not, so I'll wire this to ground 
 - The CS pin can be used to switch between I2C and SPI I think? I copied how Neil routed his
 
+<Image src={ADXL343PinConfiguration} alt="ADXL343 Pin Configuration" />
+
 ### Making the break out board 
 
 In Eagle I created the schematic. It was straight-forward, I followed the board layout and had the SDA, SCL, 3.3v and GND going to pins on the side.
 
 I also included an LED to let me know if it is powered.
 
-<!-- <Image  -->
+<!-- <Image src={devBoardWithPower} alt="Powered " -->
 
 Routing it was a little more complicated since I wanted to make it as small as possible, but by putting one of the resistors in the right place I was able to get a trace underneath and have a tight layout.
 
@@ -90,7 +98,7 @@ Routing it was a little more complicated since I wanted to make it as small as p
 
 By now, I have gotten into the hang of milling boards and it was easy to do on the OtherMill.
 
-<!-- <Image  -->
+<Image src={millingTheBoards} alt="Milling the boards" /> 
 
 ### Stuffing the accelerometer
 
@@ -247,3 +255,5 @@ Now with the values in hand we can display them. In processing the equivilent of
 ```
 
 Then with everything finished I got some cool results
+
+<Image src={processingGui} alt="Processing GUI" />

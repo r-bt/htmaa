@@ -29,6 +29,8 @@ layout: week
     import sewing from '$lib/week14-assets/sewing.jpg?width=600&format=jpeg'
     import tailLip from '$lib/week14-assets/tail-lip.png?width=600&format=jpeg'
     import vinyl from '$lib/week14-assets/vinyl.jpg?width=600&format=jpeg'
+    import inflated1 from '$lib/week14-assets/inflated1.jpg?width=600&format=jpeg&rotate=90'
+    import inflated2 from '$lib/week14-assets/inflated2.jpg?width=600&format=jpeg&rotate=90'
 
 
 </script>
@@ -185,4 +187,14 @@ And finally, everything was ready to test
 
 <Image src={completed} alt="Completed pigeon" />
 
-Unfortunally, by this time the Mars lab was closed so we had no pump to test with but that's toda
+I got a hair dryer, plugged it into the back and voila 
+
+<SideBySide>
+    <Image src={inflated1} alt="Inflated pigeon 1" />
+    <Image src={inflated2} alt="Inflated pigeon 2" />
+</SideBySide>
+
+<video controls width="250">
+    <source src="{base}/inflating.mp4"
+            type="video/mp4">
+</video>

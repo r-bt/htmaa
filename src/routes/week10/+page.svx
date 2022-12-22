@@ -10,6 +10,7 @@ layout: week
     import Image from '/src/components/Image.svelte';
     import Warning from '/src/components/Warning.svelte';
     import Info from '/src/components/Info.svelte';
+    import Future from '/src/components/Future.svelte';
     import SideBySide from '/src/components/SideBySide.svelte';  
 
     import brokenBoard from '$lib/week10-assets/broken-board.jpg?width=600&format=jpeg'
@@ -99,10 +100,11 @@ This part took a ridiculous amount of time. Most of it is my fault. When I tried
 
 ## Programming the board 
 
-After much USB jiggling, I was able to see my board in Arduino land but whenever I tried to upload the code it failed. At this point, it was 11:45 pm in EDS and had to go so I'll have to come back and fix this
+After much USB jiggling, I was able to see my board in Arduino land but whenever I tried to upload the code it worked, the stepper moved, yay!
 
-<Image src={programmingError} alt="Error while programming the board" />
+<!-- <Image src={programmingError} alt="Error while programming the board" /> -->
 
 The last step was to wire it to the stepper motor
 
 <Image src={wiringToStepper} alt="Wiring to the stepper motor" />
+

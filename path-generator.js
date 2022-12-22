@@ -8,7 +8,7 @@ const rl = readline.createInterface({
 });
 
 rl.question('What week? \n', function (week) {
-    const weekAssets = `./src/lib/week${week}-assets`;
+    const weekAssets = `./src/lib/${week}-assets`;
     
     fs.readdir(weekAssets, (err, files) => {
         files.forEach(file => {

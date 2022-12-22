@@ -24,7 +24,7 @@ layout: week
 
 This week's assignment was to redraw an echo hello world board and add an LED and a button. Before starting I thought that this would be super simple, I'd played around with KiCad over the summer and after messing up numerous times with the electronics production I thought I'd made all the mistakes to make, and it'd be smooth sailing going forwards. I was wrong.
 
-In previous week's I'd decided upon a project up front and always ran out of time, so this week I took Nial's advice and began with a spiral. To begin I would just design an echo hello world board. Then once this was done I wanted to great a LED matrix using mutliplexing or charlieplexing (explained below) in the shape of a singer's head for one of my friend's birthdays.
+In previous week's I'd decided upon a project up front and always ran out of time, so this week I took Neil's advice and began with a spiral. To begin I would just design an echo hello world board. Then once this was done I wanted to great a LED matrix using mutliplexing or charlieplexing (explained below) in the shape of a singer's head for one of my friend's birthdays.
 
 <Details title="Designing the board schematic">
 

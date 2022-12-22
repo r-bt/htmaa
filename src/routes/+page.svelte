@@ -1,5 +1,8 @@
 <script>
   import Avatar from "/src/components/Avatar.svelte";
+  import Info from '/src/components//Info.svelte';
+  import Warning from '/src/components/Warning.svelte';
+  import Future from '/src/components/Future.svelte';
 </script>
 
 <Avatar />
@@ -67,6 +70,20 @@
     </ul>
 
     There's way too much cool things to do everything in one week so I have a <a href="./to-come-back-to">list</a> of things I want to do in the future.
+    
+    <h3>What's with the colored boxes?</h3>
+    
+    <div id="color-explanation">
+      <Info>
+        <b>Info:</b> For general info I think is important
+      </Info>
+      <Warning>
+        <b>Warning:</b> For warnings, dangerous things I did, or when I'm calling out mistakes I made
+      </Warning>
+      <Future>
+        <b>Orange:</b> For when I go back to old writings with new knowledge / updates / etc. It's always future Richard talking in these
+      </Future>
+    </div>
   </div>
 </div>
 
@@ -91,5 +108,9 @@
 
   div.content > h2 {
     margin-top: 0;
+   }
+
+   div#color-explanation {
+    max-width: 600px;
    }
 </style>

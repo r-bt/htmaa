@@ -246,3 +246,54 @@ However, I thought I could still flash it with the programmer. I resoldered all 
 - Didn't breakoff 12V
 - Barrel Connector & micro usb should be there own breakout boards
     - This way if they break it's much easier to fix them.
+
+## Communicating 
+
+Eventually I got my board to work and then milled a second one. I found out what the I2C pins where, connected these together and put the example primary and secondary device code from the Arduino wire library on them. And it worked! 
+
+**Receiving code**
+```arduino
+#include <Wire.h>
+
+void setup(){
+  Wire.begin(8);                
+  Wire.onReceive(receiveEvent); 
+  Serial.begin(9600);          
+}
+
+void loop() {
+  delay(100);
+}
+
+void receiveEvent(int howMany){
+  while(1 < Wire.available()){ 
+    char c = Wire.read(); 
+    Serial.print(c);         
+  }
+  int x = Wire.read();    
+  Serial.println(x);         
+}
+```
+
+**Sending code**
+```arduino
+#include <Wire.h>
+
+void setup(){
+  Wire.begin(2);                // join i2c bus with address #2
+  Wire.onRequest(requestEvent); // register event
+}
+
+void loop(){
+  delay(100);
+}
+
+// function that executes whenever data is requested by master
+// this function is registered as an event, see setup()
+void requestEvent(){
+  Wire.write("hello "); // respond with message of 6 bytes
+                       // as expected by master
+}
+```
+
+Unfortunally, this occured after the week ended so I didn't have enough time to do anything super cool, instead I had networking in my final project which you can read about on its page
