@@ -22,7 +22,7 @@ const config = {
 			fallback: null,
 			precompress: false
 		}),
-		paths: { base: dev ? "" : "/classes/MAS.863/EECS/people/Richard" },
+		paths: { base: dev ? "" : "/classes/863.22/EECS/people/Richard" },
 		trailingSlash: 'always',
 	}
 };

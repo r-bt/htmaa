@@ -3,7 +3,7 @@ import { imagetools } from 'vite-imagetools';
 
 /** @type {import('vite').UserConfig} */
 const config = {
-	base: "/classes/MAS.863/EECS/people/Richard",
+	base: "/classes/863.22/EECS/people/Richard/",
 	plugins: [
 		imagetools(),
 		sveltekit(), 

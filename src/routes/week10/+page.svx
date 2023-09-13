@@ -100,11 +100,9 @@ This part took a ridiculous amount of time. Most of it is my fault. When I tried
 
 ## Programming the board 
 
-After much USB jiggling, I was able to see my board in Arduino land but whenever I tried to upload the code it worked, the stepper moved, yay!
-
-<!-- <Image src={programmingError} alt="Error while programming the board" /> -->
-
-The last step was to wire it to the stepper motor
+After much USB jiggling, I was able to see my board in Arduino. I copied over Neil's stepper motor code and then wired my stepper motor.
 
 <Image src={wiringToStepper} alt="Wiring to the stepper motor" />
+
+Then I uploaded the code and the stepper moved, yay!
 
